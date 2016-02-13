@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD5A56D2-B765-42D4-9B9B-6CDE6B7B1441}"
+	ProjectSection(SolutionItems) = preProject
+		HVH_Ken.vsmdi = HVH_Ken.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVH_Ken", "HVH_Ken\HVH_Ken.csproj", "{A9ADA145-2113-4C16-A54A-29F27AB52BE3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A76E811B-2B1D-4836-BA5A-253A67DF2F69} = {A76E811B-2B1D-4836-BA5A-253A67DF2F69}
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C} = {9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRTest", "PRTest\PRTest.csproj", "{34E2E0F4-59F6-4E4F-9D7B-FC314324BFAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVH_Ken_Modules", "HVH_Ken_Modules\HVH_Ken_Modules.csproj", "{A76E811B-2B1D-4836-BA5A-253A67DF2F69}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C} = {9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilHelper", "..\jmmgr\UtilHelper\UtilHelper.csproj", "{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9ADA145-2113-4C16-A54A-29F27AB52BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9ADA145-2113-4C16-A54A-29F27AB52BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9ADA145-2113-4C16-A54A-29F27AB52BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9ADA145-2113-4C16-A54A-29F27AB52BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34E2E0F4-59F6-4E4F-9D7B-FC314324BFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34E2E0F4-59F6-4E4F-9D7B-FC314324BFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34E2E0F4-59F6-4E4F-9D7B-FC314324BFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34E2E0F4-59F6-4E4F-9D7B-FC314324BFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A76E811B-2B1D-4836-BA5A-253A67DF2F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A76E811B-2B1D-4836-BA5A-253A67DF2F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A76E811B-2B1D-4836-BA5A-253A67DF2F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A76E811B-2B1D-4836-BA5A-253A67DF2F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

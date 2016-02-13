@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A9ADA145-2113-4C16-A54A-29F27AB52BE3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HVH_Ken</RootNamespace>
+    <AssemblyName>Commander</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>default.ico</ApplicationIcon>
+    <StartupObject>HVH_Ken.Program</StartupObject>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>true</GenerateManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>2FAC8E5D3DE57700E3B746EB01061A7497783A07</ManifestCertificateThumbprint>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+    <SignManifests>true</SignManifests>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>cmdsign.pfx</AssemblyOriginatorKeyFile>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <DelaySign>false</DelaySign>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>c\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>zh-CN</TargetCulture>
+    <ProductName>程序运行器</ProductName>
+    <PublisherName>Ken</PublisherName>
+    <SuiteName>程序运行器</SuiteName>
+    <MinimumRequiredVersion>1.0.0.1</MinimumRequiredVersion>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.1</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HVH_Ken_Modules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fee57adc6e3bb967, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HVH_Ken_Modules\bin\HVH_Ken_Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="UtilHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7caf2a7150da2760, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\jmmgr\UtilHelper\bin\UtilHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutInfo.Designer.cs">
+      <DependentUpon>AboutInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdvSrc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvSrc.Designer.cs">
+      <DependentUpon>AdvSrc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomIconForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomIconForm.Designer.cs">
+      <DependentUpon>CustomIconForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HotKeyMgrFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HotKeyMgrFrm.Designer.cs">
+      <DependentUpon>HotKeyMgrFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HotKeyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HotKeyTextBox.Designer.cs">
+      <DependentUpon>HotKeyTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ItemFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemFinder.Designer.cs">
+      <DependentUpon>ItemFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LetterKeyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LetterKeyTextBox.Designer.cs">
+      <DependentUpon>LetterKeyTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NoticeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NoticeForm.designer.cs">
+      <DependentUpon>NoticeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoticeMgrFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NoticeMgrFrm.designer.cs">
+      <DependentUpon>NoticeMgrFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OprFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OprFrm.Designer.cs">
+      <DependentUpon>OprFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingFrm.Designer.cs">
+      <DependentUpon>SettingFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutInfo.resx">
+      <DependentUpon>AboutInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvSrc.resx">
+      <DependentUpon>AdvSrc.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomIconForm.resx">
+      <DependentUpon>CustomIconForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HotKeyMgrFrm.resx">
+      <DependentUpon>HotKeyMgrFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemFinder.resx">
+      <DependentUpon>ItemFinder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoticeForm.resx">
+      <DependentUpon>NoticeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoticeMgrFrm.resx">
+      <DependentUpon>NoticeMgrFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OprFrm.resx">
+      <DependentUpon>OprFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingFrm.resx">
+      <DependentUpon>SettingFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunFrm.resx">
+      <DependentUpon>RunFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowInfo.resx">
+      <DependentUpon>ShowInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SrcEngEdt.resx">
+      <DependentUpon>SrcEngEdt.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskSetting.resx">
+      <DependentUpon>TaskSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextBoxWithoutSound.resx">
+      <DependentUpon>TextBoxWithoutSound.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RunFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RunFrm.Designer.cs">
+      <DependentUpon>RunFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShowInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowInfo.Designer.cs">
+      <DependentUpon>ShowInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SrcEngEdt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SrcEngEdt.Designer.cs">
+      <DependentUpon>SrcEngEdt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaskSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskSetting.Designer.cs">
+      <DependentUpon>TaskSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxWithoutSound.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxWithoutSound.Designer.cs">
+      <DependentUpon>TextBoxWithoutSound.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="cmdsign.pfx" />
+    <None Include="HVH_Ken_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

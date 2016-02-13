@@ -1,0 +1,14 @@
+[{
+	"saleoff":"1",
+	"text":"不打折",
+	"selected":true
+},{
+	"saleoff":"0.9",
+	"text":"9折"
+},{
+	"saleoff":"0.8",
+	"text":"8折"
+},{
+	"saleoff":"0.7",
+	"text":"7折"
+}]

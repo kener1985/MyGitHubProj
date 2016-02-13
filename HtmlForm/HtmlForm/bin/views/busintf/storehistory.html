@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style='overflow-y:hidden'>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>库存记录</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+</head>
+<body leftmargin="20" >
+<div style="margin-bottom:10px;" id="oprpanel">
+<span style="margin-left:10px">客户：</span><input title="空则不作查询条件" class="easyui-validatebox" maxLength=16 style="width:100px" type="text" id="customer" data-options="required:false" />  
+<span style="margin-left:10px">备注：</span><input  title="空则不作查询条件"  class="easyui-validatebox" style="width:300px;" maxLength=100 type="text" id="mark" data-options="required:false" />  
+<a id="btnQuery" href="javascript:query()" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a> 
+<a href="javascript:update()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" >更新</a> 
+</div>
+
+	<table id="dg" class="easyui-datagrid" title="库存历史记录"  style="width:1010px;height:580px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:0,hidden:true"></th>
+				<th data-options="field:'date',width:100,align:'center'">日期</th>
+				<th data-options="field:'name',width:60,align:'center'">名称</th>
+				<th data-options="field:'productid',width:90,align:'center'">实际编号</th>
+				<th data-options="field:'innerid',width:90,align:'center'">编号</th>
+				<th data-options="field:'colornum',width:60,align:'center'">色号</th>
+				<th data-options="field:'type',width:50,align:'center',formatter:typeFormatter">类型</th>
+				<th data-options="field:'num',width:40,align:'right'">数量</th>
+				<th data-options="field:'finalstore',width:70,align:'right'">最终库存</th>
+				<th data-options="field:'customer',width:80,align:'center'">客户</th>
+				<th data-options="field:'mark',width:240,align:'center'">备注</th>
+				<th data-options="field:'__name__',width:60,align:'center'">操作人</th>
+			</tr>
+		</thead>
+	</table>
+	</div>	
+</body>
+</html>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+$(function()
+{
+		$('#dg').datagrid({loadFilter:pagerFilter,pagination:true,rownumbers:true,onSelect:onRowSelected	});
+		var pager = $('#dg').datagrid('getPager');
+		pager.pagination({showRefresh:false,pageList:[18]});
+
+		$(':input').bind('focus',function(e)
+			{
+				e.srcElement.select();
+			}
+		);//end bind
+}
+);
+
+	function InitPage(id)
+	{
+		$('#dg').datagrid('hideColumn','name');
+		$('#dg').datagrid('hideColumn','productid');
+		$('#dg').datagrid('hideColumn','innerid');
+		$('#dg').datagrid('hideColumn','colornum');
+		
+		$('#dg').datagrid({height:590,width:750});
+		var pager = $('#dg').datagrid('getPager');
+		pager.pagination({showRefresh:false,pageList:[18]});
+		//$('html').css('overflow-y','auto')
+		$('#btnQuery').css('display','none');
+		$(':input').removeAttr('title');
+		
+		id = id.substring(1);
+		PostData('','fields=*&cmd=select&table=storenumhistory&invoke=returnJson&longdate=true&limit=productid%3d'+id + ' order by seqnbr desc');
+	}
+	function onRowSelected(rowIndex, rowData)
+	{
+		$('#customer').val(rowData['customer']);
+		$('#mark').val(rowData['mark']);
+	}
+	function typeFormatter(v,r)
+	{
+		if(v === 'I')
+			return '入货';
+		else if(v === 'O')
+			return '出货';
+		return '修改';
+	}
+	function returnJson(json)
+	{
+		var pager = $('#dg').datagrid('getPager');
+		pager.pagination('select',1);
+		var tbl = eval('('+json+')');
+
+		$('#dg').datagrid("loadData",tbl);
+	}
+
+	function query()
+	{
+		var cus = $('#customer').val();
+		var mark=$('#mark').val();
+		if(cus.trim() === '' && mark.trim() === '')
+		{
+			$.messager.alert('温馨提示','请输入客户名称或备注!','warning');
+			return;
+		}
+		var q = 'invoke=returnJson&cmd=queryallstore&customer=' + cus + '&mark=' + mark;
+		PostData(null,q);
+	}
+	function update()
+	{
+		var sel = $('#dg').datagrid('getSelected');
+		if(sel == null)
+		{
+			$.messager.alert('温馨提示','请选择需更新的记录!','info');
+			return;
+		}
+		var msg = '您确定更新记录吗?<br/>';
+		var cust = $('#customer').val().trim();
+		var mark = $('#mark').val().trim();
+		msg += '客户：' + cust;
+		msg += '<br/>备注：' + mark + '<br/><br/>';
+		$.messager.confirm('温馨提示',msg,function(ok){ 
+    if (ok){   
+		PostData(null,'invoke=updateCallback&cmd=updateStore&customer='+cust+'&mark='+mark+'&id='+sel.id)
+    }   
+});  
+	}
+
+	function updateCallback(success)
+	{
+		if(success)
+		{
+			var sel = $('#dg').datagrid('getSelected');
+			var idx = $('#dg').datagrid('getRowIndex',sel);
+			var cust = $('#customer').val().trim();
+			var mark = $('#mark').val().trim();
+			$('#dg').datagrid('updateRow',{
+			index: idx,
+			row: {
+				customer: cust,
+				mark :mark
+				}
+			});//end updateRow
+			$.messager.alert('温馨提示','更新成功!','info');
+		}else
+		{
+			$.messager.alert('温馨提示','更新失败!','error');
+		}
+	}
+//-->
+</SCRIPT>

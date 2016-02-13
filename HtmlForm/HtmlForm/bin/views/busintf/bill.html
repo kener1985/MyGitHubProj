@@ -1,0 +1,666 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+	<style>
+	<!--
+	li:hover{color:blue;background:#eaf2ff;}
+	-->
+	</style>
+</head>
+<body leftmargin="20">	
+
+<div style="position:absolute;left:100">
+	<div class="easyui-panel" title="操作" style="width:480px;height:180px;overflow-y:hidden" data-options="collapsible:false">
+		<div style="padding:0 0 0 10px;">
+	    <form id="ff" >
+	<TABLE style="table-layout:fixed;word-break:break-all;word-wrap:truemargin:0 0 0 1px">
+		<col width="60px"><col width="160px"><col width="60"><col width="160">
+	    		<tr>
+	    			<td>编号：</td>
+	    			<td><input class="easyui-validatebox" type="text"  onKeyUp="queryKeyUp()" onFocus="trigerPRHidden();" name="id" data-options="required:true"></input></td>
+					<td colspan=2>
+					<a href="javascript:query();" class="easyui-linkbutton" style="float:left" data-options="iconCls:'icon-search',plain:true">查询</a>
+					<span id="status" class="icon-ok" style="float:left;width:16px;height:16px;display:none"></span>
+					<a href="javascript:addProduct();" class="easyui-linkbutton" style="float:right;" data-options="iconCls:'icon-add',plain:true">添加新产品</a>
+					</td>
+							
+	    		</tr>
+	    		<tr>
+	    			<td>色号：</td>
+	    			<td><input id="sehao" class="easyui-combobox"  data-options="width:150,valueField:'id',textField:'colornum',editable:false,onSelect:itemSel,panelHeight:150,required:false,multiple:false,formatter:shformatter" />  </td>
+					<td>类型：</td>
+	    			<td>
+					<div style="border:1px solid #eaf2ff;">
+					<input type="radio" name="type" value='O'  checked >出货
+					<input type="radio" name="type" value='I'  >退货
+					</div>
+					</td>
+				</tr>
+				<tr>
+	    			<td>数量：</td>
+	    			<td><input class="easyui-numberbox" style="" type="text" name="num" data-options="min:1,max:999999999,required:true"></input><!--<input name="isPack" type="checkbox" checked>整庄--></td>	
+					<td>单位：</td>
+	    			<td><input id="unit" class="easyui-combobox" data-options="onLoadSuccess:unitloaded,required:true,width:80,valueField:'id',textField:'unit',editable:true,panelHeight:100,url:'../data/unit.json',multiple:false,formatter:unitformatter" />  </td>
+					
+				</tr>
+	    		
+				<tr>
+	    			<td>折扣：</td>
+	    			<td>
+						<input id="saleoff" class="easyui-combobox" data-options="width:80,disabled:true,panelHeight:100,editable:false,valueField:'saleoff',textField:'text',url:'../data/saleoff.json'" />
+					</td>
+					<td>优惠价：</td>
+	    			<td>
+						<input id="iscus" type="checkbox" onClick="customPrice(this)" checked>
+						<input id="cusprice" class="easyui-numberbox" style="width:123px"  type="text"  data-options="precision:2">
+					</td>
+	    			
+	    		</tr>
+				<tr>
+				<td>备注：</td>
+	    			<td>
+					<input   type="text" id="mark" >
+	    			</td>
+	    			<td colspan="2">
+					<div style="padding-left:90px">
+					<a href="javascript:addItem()"  class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+					<a href="javascript:submitBill()"  class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true">提交</a>
+					</div>
+	    			</td>
+	    		</tr>
+	    	</table>
+	    </form>
+	    </div>
+		</div>
+		</div>
+
+		<div style="position:absolute;left:501px">
+		<div class="easyui-panel" title="货品明细" style="width:480px;height:180px;overflow-x:hidden" data-options="collapsible:false">
+		<TABLE style="table-layout:fixed;word-break:break-all;word-wrap:true;font-size:16px;margin:0 0 0 1px">
+		<col width="80px"><col width="120px"><col width="80"><col width="120">
+		<TR height="30px">
+			<TD><b>编号：</b></TD>
+			<TD><label id="productid"></label></TD>
+			<TD><b>名称：</b></TD>
+			<TD><label id="name"></label></TD>
+		</TR>
+		<TR height="30px">
+			<TD><b>色号：</b></TD>
+			<TD><label id="sh"></label></TD>
+			<TD><b>规格：</b></TD>
+			<TD><label id="size"></label></TD>
+		</TR>
+		<TR height="30px">
+		<TD><b>库存量：</b></TD>
+			<TD><label id="num"></label></TD>
+			<TD><b>价格：</b></TD>
+			<TD><label id="price"></label></TD>
+			
+		</TR>
+		<TR height="30px">
+		<TD><b>仓位：</b></TD>
+			<TD><label id="pos"></label></TD>
+			<TD><b>包装数：</b></TD>
+			<TD><label id="packagenum"></label></TD>
+			
+		</TR>
+		</TABLE>
+		</div>
+		</div>
+
+
+		<div style="position:absolute;top:200px;left:20px">
+		<div id="content" class="easyui-panel" title="账单" style="width:960px;overflow-x:hidden" data-options="collapsible:true">
+		<div style="margin:10px 0 10px 6px">
+		购货单位：<input type="text" name="purunit" >
+		<label style="margin-left:500px">日期：<label name="date"></label></label>
+		页码：<label name="pagecode">1</label>
+		<input type="hidden" name="pid" value="0">
+		</div>
+		<TABLE id="bill" style="table-layout:fixed;word-break:break-all;word-wrap:true;margin:0 0 0 1px">
+			<thead align="left">
+				<th>编号</th>
+				<th>规格</th>
+				<th>色号</th>
+				<th>数量</th>
+				<th >单价</th>
+				<th>总价</th>
+				<th>位置</th>
+				<th>备注</th>
+				<th ></th>
+				<th style="display:none">产品ID</th>
+				<th style="display:none">折扣</th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+		<div style="margin-top:20px">
+		<label style="margin:0 150px 0 10px">制单人：<label name="operator"></label></label>
+		<label style="margin-right:150px">提货人：<input type="text" name="payer" style="width:200px"></label>
+		电话： <input type="text" name="mobile"  style="width:200px" ></div>
+		</div>
+		
+</div>
+<div id="ac" selidx="-1" style="position:absolute;width:160px;height:120px;top:75px;left:90px;border:solid #eaf2ff 1px;background:white;display:none;overflow-x:hidden;overflow-y:auto;">
+<ul style="list-style-type:none;margin:2px;cursor:hand;font-size:15px;white-space:nowrap;">
+
+</ul>
+</div>
+
+<a id="tbhp" href="javascript:showHisPrice();" class="easyui-linkbutton" style="position:absolute;top:17px;left:390px;" data-options="iconCls:'icon-add',plain:true">历史价格</a>
+<div id="pricehis" style="position:absolute;width:280px;height:80px;top:46px;left:200px;border:solid #FF3300 2px;background:white;display:none;overflow-x:hidden;overflow-y:auto;">
+<ul style="list-style-type:none;margin:2px;cursor:hand;font-size:15px;white-space:nowrap;">
+</ul>
+
+</div>
+<div style="position:absolute;top:206px;left:80px;font-size:15px;">
+<input type="checkbox" id="jq">结清
+</div>
+<div>
+<a  href="javascript:backup('save');" class="easyui-linkbutton" style="position:absolute;top:203px;left:150px;" data-options="iconCls:'icon-save',plain:true">保存</a>
+<a href="javascript:backup('restore');" class="easyui-linkbutton" style="position:absolute;top:203px;left:220px;" data-options="iconCls:'icon-add',plain:true">恢复</a>
+</div>
+</body>
+</html>
+
+<SCRIPT LANGUAGE="JavaScript" >
+	    <!--
+
+function backup(type)
+{
+
+	PostData($('#bill tbody').html(),'cmd=billbackup&type='+type);
+}
+function restoreList(list)
+{
+	if($('#bill tbody tr').length > 0)
+	{
+		$.messager.confirm('温馨提示', '当前账单将被替换！', function(r){
+				if(r == false) return;
+				$('#bill tbody').html(list);
+				});
+	}else $('#bill tbody').html(list);
+}
+			function InitPage(p)
+			{
+				//alert(p);
+				if(p === '')
+				{
+					//$('#tbhp').css('display','none');
+					PostData('','cmd=initbillinfo&invoke=setBillnfo');		
+				}else
+				{
+					p = p.substring(1);
+					PostData('','cmd=initbillinfo&invoke=setBillnfo&id='+p);		
+					PostData('','cmd=select&table=bills&fields=id,operator,payer,mobile,purunit,pagecode&invoke=returnJson&limit=id%3d'+p);
+				}
+				//$('#unit').combobox('setText','');
+			}
+			function trigerPRHidden()
+			{
+				$('#pricehis').css('display','none');
+			}
+			function showHisPrice()
+			{
+				var item = getComboRowById('#sehao','id');
+				if(item === null)return;
+				
+					var s = item.productid ;
+					if(s === null || s === undefined || s === '')
+						s = item.innerid;
+					
+					$('#pricehis li').css('display','none');
+					$('#pricehis li[name='+s+']').css('display','block');
+				
+				if($('#pricehis').css('display') === 'none')
+					$('#pricehis').css('display','block');
+				else
+					$('#pricehis').css('display','none');
+			}
+			function unitloaded()
+			{
+				//alert('loaded');
+				$('#unit').combobox('setText','');
+			}
+			function shformatter(row)
+			{
+				return row.colornum + ' (' + row.storenum + ')';;
+			}
+			function unitformatter(row)
+			{
+				if(row.punit === null || row.punit === undefined || row.punit === '')
+					return row.unit;
+
+				return row.unit + '/' + row.punit;
+			}
+			function setBillnfo(name,date,pc,pricehis)
+			{
+				$('label[name=date]').text(date);
+				$('label[name=operator]').text(name);
+				$('label[name=pagecode]').text(pc);
+				//alert(pricehis);
+				if(pricehis === '')return;
+
+				var obj = $.parseJSON(pricehis);
+				$.each(obj.rows,function(n,r)
+				{
+					var s = r.productid;
+					var item = '';
+					if(s === null || s === undefined || s === '')
+						s = r.innerid;
+					
+					
+					item = r.date;
+					if(r.colornum != null && r.colornum != undefined && r.colornum != '')
+						item += ',' + r.colornum + '色';
+					item += '：' + r.saleprice + '元'; 
+					
+					$('#pricehis ul').append('<li name="' +s+'" style="display:none">' + item + '</li>');
+				}
+				);
+				//alert(obj.rows[0].saleprice);
+			}
+			function returnJson(json)
+			{
+				var b = $.parseJSON(json);
+				if(b.rows.length === 0)return;
+
+				$('input[name=payer]').val(b.rows[0].payer);
+				$('input[name=mobile]').val(b.rows[0].mobile);
+				$('input[name=purunit]').val(b.rows[0].purunit);
+				$('input[name=pid]').val(b.rows[0].id);
+			}
+			function customPrice(obj)
+			{
+				var cp = $('#cusprice');
+				if(obj.checked == true)
+				{
+					$('#saleoff').combobox('disable');
+					$('#saleoff').combobox('setValue',1);
+					cp.css('display','');
+				}else
+				{
+					$('#saleoff').combobox('enable');
+					cp.css('display','none');
+				}
+			}
+			function deleteItem(idx)
+			{
+				var row = $('#bill tbody tr[itemid=' + idx + ']');
+				
+				row.remove();
+				if($('#bill tbody tr').length === 0)
+				{
+					$('input[name=type]').attr('disabled',false);
+				}
+			}
+			function addItem()
+			{
+				var tbd = $('#bill tbody');
+				if(tbd.find('tr').length >= 12)
+				{
+					$.messager.alert('提示','表单已满,请新建账单!','info');
+					return;
+				}
+			    if($('#ff').form('validate') == false)
+					return;
+				var item = getComboRowById('#sehao','id');
+				if(item == null)
+				{
+					$.messager.alert('错误','没有该产品，请先录入!','error');
+					return;
+				}
+			
+				var total = parseInt(item.storenum);
+				
+				var num = parseInt($('input[name=num]').val());
+				//if($('input[name=isPack]').prop('checked'))
+				//	num = num*item.packagenum;;
+					
+				if(total > 0 && num > total)
+				{
+					$.messager.alert('提示','库存量不足，请检查!','warn');
+					//$('input[name=num]').focus();
+					//$('input[name=num]').select();
+					return ;
+				}
+
+				
+				var type = $('input[name=type][checked]').val();
+				//判断货品是否已添加
+				if(tbd.find('tr[itemid=' +item.id+']').length > 0)
+				{
+					$.messager.alert('记录重复','编号' + item.innerid + '色号' + item.colornum + '记录已存在!','error');
+					return;
+				}
+				//价格
+				var price = 0.00;
+				if($('#iscus').prop('checked'))
+				{
+					var price = $('#cusprice').val();
+					if(price === '')
+					{
+						$.messager.alert('错误','请输入价格','error');
+						$('#cusprice').focus();
+						return;
+					}
+					price = parseFloat(price);
+				}
+				else
+				{
+					price = parseFloat(item.price);
+				}
+				
+				var soff =  parseFloat($('#saleoff').combobox('getValue'));
+				soff = (price * soff).toFixed(2);//四舍五入后保留两位小数
+				var tprice = (soff * num).toFixed(2);//总价
+
+				var u = getComboRowById('#unit','id');
+
+				var c_num = '';
+
+				if(u!= null)
+				{
+				//包装数大于1时，格式化输出格式，加入整装数量
+					c_num = num + u.unit;
+					if(item.packagenum  > 1)
+					{
+						if(num % item.packagenum === 0)
+							c_num += '('+(num/item.packagenum) + u.punit + ')';	
+						else
+							c_num += '('+(num/item.packagenum).toFixed(1) + u.punit + ')';	
+					}
+				}else
+				{
+					c_num += num + $('#unit').combobox('getText');
+				}
+				$('#unit').combobox('setText','');
+				
+				//添加账单项
+				var st;
+				//if(type === 'O')
+				//	st = '出货';
+				//else st = '退货';
+				var pronbr = $('#productid').text();
+				var cn = $('#sh').text();
+				var pos = $('#pos').text();
+				var size = $('#size').text();
+				var mark = $('#mark').val();
+					
+				var item ='<tr itemid="' + item.id +'"><td name="prodnbr">'+ pronbr + '</td>' +
+				'<td name="size">'+size+'</td>'+
+				'<td name="sh">'+cn+'</td>' +
+				'<td name="num" value="' + num + '">'+c_num+'</td>'+
+				'<td name="saleprice">'+soff+'</td>'+
+				'<td name="total" type="money">'+tprice+'</td>'+
+				'<td name="position">'+ pos + '</td>'+
+				'<td name="mark">'+mark+
+				'<td ignore=true noprint=true><a href="javascript:deleteItem(' + item.id+');">删除</a></td>'+
+				'<td name="productid" noprint=true style="display:none">'+item.id +'</td>' +
+				'<td name="type" noprint=true style="display:none">'+type +'</td>' +
+				'<td name="saleoff" noprint=true style="display:none">'+$('#saleoff').combobox('getValue') + 	'</td></tr>';
+				tbd.append(item);
+				$('input[name=type]').attr('disabled',true);
+			}
+	function submitBill()
+	{
+
+				
+			var punit = $('input[name=purunit]').val().trim();
+		var mobile = $('input[name=mobile]').val().trim();
+		var payer = $('input[name=payer]').val().trim();
+		if(punit === '')
+		{
+			$.messager.alert('错误','请输入购货单位!','error');
+			return;
+		}
+		if( mobile === '')
+		{
+			$.messager.alert('错误','请输入联系电话!','error');
+			return;
+		}
+			$.messager.confirm('温馨提示', '您确定要提交吗?', function(r){
+				if(r == false) return;
+		var arr = new Array();
+		var total = 0.00;
+		$.each( $('#bill tbody tr'),function(n,tr){
+
+			var obj = {};
+			//obj.id = tr.itemid;
+			$.each($(tr).find('td'),function(i,td){
+				if(td.ignore)return;
+
+				if(td.name != null  && td.name != '')
+				{
+					if(td.name === 'total')
+						total += parseFloat(td.innerText);
+
+					if(td.value != null && td.value != '')
+					{
+						obj[td.name] = td.value;
+						obj['c_'+td.name] = td.innerText;
+					}
+						else
+					obj[td.name] = td.innerText;
+					}
+				}
+			);//end each
+			arr.push(obj);
+		}
+		);//end each
+		if(arr.length < 1)
+		{
+			$.messager.alert('无法提交','账单为空!','error');
+			return ;
+		}
+		var type = $('input[name=type][checked]').val();
+		if($('#jq').prop('checked') === true)
+			type = 'P';
+
+		var p = 'payer=' + $('input[name=payer]').val();
+		p += '&pagecode='+$('label[name=pagecode]').text();
+		p += '&mobile=' +	$('input[name=mobile]').val();
+		p += '&purunit=' + $('input[name=purunit]').val();
+		p += '&pid='+$('input[name=pid]').val();
+		p += '&cmd=balancebill';
+		p+= '&totalamt=' + total.toFixed(2) + '元    （大写:' + ToUpperCase(total.toFixed(2)) + '）';
+		p += '&amount=' + total.toFixed(2)
+		p += '&type='+type;
+		
+		PostData(ToEasyUIJson('sh,num,saleprice,total,type,mark,productid,saleoff,size,prodnbr,position,c_num',arr),p);
+			});
+		
+	}
+	function resultCallback(ret)
+	{
+
+		//printPreview();
+		if(ret === false)
+		{
+			$.messager.alert('错误','制单失败','error');
+			return;
+		}else
+		{
+			$.messager.alert('温馨提示','制单完成','info');
+		}
+		var id = $('#sehao').combobox('getValue');
+		query();
+		//更新最新数据
+		if($('#sehao').combobox('getData').length != 1)
+		{
+			$('#sehao').combobox('setValue',id);
+			var r = getComboRowById('#sehao','id');
+			itemSel(r);
+		}
+		
+
+	}
+			function query()
+			{
+				if($('input[name=id]').val().trim() === '')
+				{
+					$.messager.alert('错误','请输入编号','error');
+					return ;
+				}
+			
+
+				$('#sehao').combobox("clear");
+				$('#productid').text('');
+				$('#name').text('');
+				$('#sh').text('');
+				$('#num').text('');
+				$('#price').text('') ;
+				$('#pos').text('');
+				$('#packagenum').text('');
+				
+				var id = $('input[name=id]').val();
+				PostData(id,'cmd=query_product&invoke=queryCallback&fields=id,productid,name,innerid,price,colornum,position,storenum,packagenum,size');
+			}
+			function addProduct()
+			{
+				SentAction('default','addproduct','');
+			}
+			function getComboRowById(cb,id)
+			{
+				var ret = null;
+				var v = $(cb).combobox('getValue') + '';
+				
+				$.each($(cb).combobox('getData'),function(n,r)
+				{
+					if((r[id]+'') === v)
+					{
+						ret = r;
+						return false;
+					}
+				});
+				return ret;
+			}
+			function queryCallback(json)
+			{
+				var tbl = $.parseJSON(json);
+				
+				$('#sehao').combobox("loadData",tbl.rows);
+				
+				$('#sehao').combobox('disable');
+
+				if(tbl.rows.length == 1)
+				{
+					$('#sehao').combobox('select',tbl.rows[0].id);
+					itemSel(getComboRowById('#sehao','id'));
+					$('#sehao').combobox('disable');
+				}else
+				{
+					$('#sehao').combobox('enable');
+				}
+				//$('#sehao').combobox({value:''});
+				$('#status').removeClass('icon-cancel icon-ok');
+				if(tbl.total > 0)
+				{
+					$('#status').addClass('icon-ok');
+					
+				}else
+				{
+					$('#status').addClass('icon-cancel');
+				}
+				$('#status').css('display','block');
+			}
+			function  itemSel(r)
+			{
+				var pronbr = r.productid;
+				var sh = r.colornum;
+				var pos = r.position;
+				trigerPRHidden();
+				if(sh === undefined || sh === null)
+					sh = '';
+				if(pos === undefined || pos === null)
+					pos = '';
+				if(pronbr === undefined || pronbr === null || pronbr === '')
+					pronbr = r.innerid;
+
+				$('#productid').text(pronbr);
+				$('#name').text(r.name);
+				$('#sh').text(sh);
+				$('#num').text(r.storenum);
+				$('#packagenum').text(r.packagenum);
+				var size = r.size;
+				if(size === null || size === undefined)
+					size = '';
+				$('#size').text(size);
+				var sprice = r.price + '';
+				if(sprice.indexOf('.') == -1)
+					$('#price').text(sprice+ '.00') ;
+				else
+					$('#price').text(sprice);
+				$('#pos').text(pos);
+			}
+
+			function queryKeyUp(e)
+			{
+				
+				if(window.event.keyCode != 38 && window.event.keyCode != 40)
+				{
+					$('#ac').attr('selidx','-1');
+					$('#ac').css('display','none');
+				}
+				if(window.event.keyCode == 13)//回车键
+				{
+					query();
+					return;
+				}
+				
+				if(window.event.keyCode === 32)
+				{
+					var ele = $('input[name=id]');
+					ele.val(ele.val().trim());
+					PostData(ele.val(),'cmd=queryinnenid&invoke=inneridAutoComplete');
+					return;
+				}
+
+				if(window.event.keyCode === 38 || window.event.keyCode === 40)
+				{
+					var t = $('#ac');
+					var sel =parseInt(t.attr('selidx'));
+					var count = t.find('ul li').length;
+
+					if(window.event.keyCode === 38)//上
+						sel--;
+					else if(window.event.keyCode === 40)//下
+						sel++;
+					
+					if(sel < 0 || sel >= count)
+						return;
+					
+					t.attr('selidx',sel);
+					$('input[name=id]').val(t.find('ul li')[sel].innerText);
+					
+			}
+			}
+			function inneridAutoComplete(json)
+			{
+				$('#ac ul').empty();
+				var rows =$.parseJSON(json).rows;
+				if(rows.length > 0)
+					$('#ac').css('display','block');
+				for(var i=0;i<rows.length;++i)
+				{
+					var item = rows[i];
+					$('#ac ul').append('<li innerid="'+ item.innerid +'" onClick="liItemClick(this);">' +item.innerid + '</li>');
+				}
+			}
+			function liItemClick(li)
+			{
+				$('input[name=id]').val(li.innerid);
+				$('#ac').css('display','none');
+				query();
+			}
+	    //-->
+	    </SCRIPT>

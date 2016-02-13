@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="0f0651ef-db3c-4a93-97d6-125d95b1b6dd" name="HO174865@HO174865-ZEJ 2009-08-14 08:54:52" runUser="ITC\HO174865" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="本地测试运行" id="72aaed88-9bd5-4496-af1e-046c0f1d48d0">
+    <Description>这是本地测试运行的默认测试运行配置。</Description>
+    <Deployment runDeploymentRoot="I:\C#Project\EasyDesktop\TestResults\HO174865_HO174865-ZEJ 2009-08-14 08_54_52">
+      <DeploymentItem filename="I:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\Release\HVH_Ken_Modules.dll" />
+    </Deployment>
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2009-08-14T08:54:52.6622998+08:00" queuing="2009-08-14T08:54:55.9509458+08:00" start="2009-08-14T08:54:56.3250098+08:00" finish="2009-08-14T08:54:57.2445838+08:00" />
+  <TestDefinitions>
+    <UnitTest name="ParseCommandTest" storage="i:\c#project\easydesktop\prtest\bin\release\prtest.dll" id="11cfb1ef-bce7-4562-c5d7-63884bb1ed1f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="HVH_Ken_Modules.dll" />
+      </DeploymentItems>
+      <Execution id="331f788b-022b-4b12-b7dc-ae70db1b0d98" />
+      <TestMethod codeBase="I:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PRTest.ProgFinderTest, PRTest" name="ParseCommandTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="11cfb1ef-bce7-4562-c5d7-63884bb1ed1f" executionId="331f788b-022b-4b12-b7dc-ae70db1b0d98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="331f788b-022b-4b12-b7dc-ae70db1b0d98" testId="11cfb1ef-bce7-4562-c5d7-63884bb1ed1f" testName="ParseCommandTest" computerName="HO174865-ZEJ" duration="00:00:00.0477241" startTime="2009-08-14T08:54:56.4341118+08:00" endTime="2009-08-14T08:54:57.1510678+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

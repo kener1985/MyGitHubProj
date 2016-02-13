@@ -1,0 +1,23 @@
+[{
+	"id":0,
+	"unit":"包",
+	"punit":"箱"
+},
+{
+	"id":1,
+	"unit":"块",
+	"punit":"箱",
+	"selected":true
+},{
+	"id":2,
+	"unit":"个",
+	"punit":"箱"
+},{
+	"id":3,
+	"unit":"套",
+	"punit":"箱"
+},{
+	"id":4,
+	"unit":"米",
+	"punit":""
+}]

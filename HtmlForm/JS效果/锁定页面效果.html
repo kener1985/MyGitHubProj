@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <SCRIPT LANGUAGE="JavaScript">
+  <!--
+  var C = {a:'a'};
+	function LockPage()
+	{
+		var w = document.body.scrollWidth;
+		var h = document.body.scrollHeight;
+		w=Math.max(document.body.scrollWidth,document.documentElement.scrollWidth); 
+		h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight); 
+		
+		var d= document.createElement("div");
+		//d.id = "mask";
+		d.style.filter = "alpha(opacity=10)";
+		d.style.background="#33393C"; 
+		d.style.width = w + "px";
+		d.style.height = h  + "px";
+		d.style.position="absolute"; 
+		d.style.top = "0px";
+		d.style.left = "0px";
+		d.style.zIndex = "1"; 
+		//d.style.display = "";
+
+		document.body.appendChild(d);
+	}
+	function show()
+	{
+		var v = document.getElementById("mask");
+		 v.style.display = "";
+	}
+  //-->
+  </SCRIPT>
+ </HEAD>
+
+ <BODY onload="LockPage()">
+  <INPUT TYPE="button" VALUE="lock" ONCLICK="show();">
+  <pre>
+  sdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsdsdfsdfsds
+  </pre>
+ </BODY>
+</HTML>

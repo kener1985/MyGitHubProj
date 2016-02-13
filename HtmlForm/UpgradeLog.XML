@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="HtmlForm">
+</Property><Property Name="Solution File" Value="D:\我的文档\CSharpProject\HtmlForm\HtmlForm.sln">
+</Property><Property Name="User Options File" Value="D:\我的文档\CSharpProject\HtmlForm\HtmlForm.suo">
+</Property><Property Name="Date" Value="2014年2月16日">
+</Property><Property Name="Time" Value="23:35">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="HtmlForm.sln" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm.sln">
+</Event><Event ErrorLevel="0" Project="" Source="HtmlForm.suo" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm.suo">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\HtmlForm.csproj" Description="Project file successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\HtmlForm.csproj">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\LogonFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\LogonFrm.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\LogonFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\LogonFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\MainForm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\MainForm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Program.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Program.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Properties\Resources.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Properties\Settings.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\SyncDataHandler.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\SyncDataHandler.cs">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\key.pfx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\key.pfx">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Properties\Settings.settings" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\jh.ico" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\jh.ico">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\LogonFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\LogonFrm.resx">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\MainForm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\Properties\Resources.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\HtmlForm\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\HtmlForm.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="HtmlForm" Source="HtmlForm\HtmlForm.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\BaseLib.csproj" Description="Project file successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\BaseLib.csproj">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\CacheManager.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\CacheManager.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\DebugPageGenerator.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\DebugPageGenerator.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\EasyUITable.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\EasyUITable.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\Extends.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\Extends.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\FormBrowser.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\FormBrowser.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\GlobalVar.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\GlobalVar.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\IAction.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\IAction.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\ScriptUtility.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\ScriptUtility.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\Package.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\Package.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\Utility.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\Utility.cs">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\libkey.pfx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\BaseLib\libkey.pfx">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\BaseLib.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="BaseLib" Source="BaseLib\BaseLib.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\DefaultAction.csproj" Description="Project file successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\DefaultAction.csproj">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\Action.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\Action.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\AddProductFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\AddProductFrm.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\AddProductFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\AddProductFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\BillPrinter.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\BillPrinter.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\DefAction.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\DefAction.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PaybackFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PaybackFrm.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PaybackFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PaybackFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PopupFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PopupFrm.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PopupFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PopupFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\StoreChangeFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\StoreChangeFrm.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\StoreChangeFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\StoreChangeFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\WidgeCalFrm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\WidgeCalFrm.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\WidgeCalFrm.Designer.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\WidgeCalFrm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\AddProductFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\AddProductFrm.resx">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PaybackFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PaybackFrm.resx">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\PopupFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\PopupFrm.resx">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\StoreChangeFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\StoreChangeFrm.resx">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\WidgeCalFrm.resx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\DefaultAction\WidgeCalFrm.resx">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\DefaultAction.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DefaultAction" Source="DefaultAction\DefaultAction.csproj" Description="Converted">
+</Event><Event ErrorLevel="1" Project="UtilHelper" Source="..\UtilHelper\UtilHelper.csproj" Description="Warning: The project file is being backed up to a relative path that differs from the original solution relative path.  The difference in folder hierarchy may create problems in opening or building the backed up solution and project.">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\UtilHelper.csproj" Description="Project file successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\UtilHelper.csproj">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\UtilHelper.csproj.user" Description="Project user file successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\UtilHelper.csproj.user">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Converter\JSonXmlConverter.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Converter\JSonXmlConverter.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Database\AbstractIdGengerator.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Database\AbstractIdGengerator.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Database\DBDebuger.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Database\DBDebuger.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Encoding\EncodingUtil.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Encoding\EncodingUtil.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Http\HttpComm.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Http\HttpComm.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Converter\CustomAttribute.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Converter\CustomAttribute.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Converter\XmlObjConverter.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Converter\XmlObjConverter.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Database\AbstractDbHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Database\AbstractDbHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Database\SQLiteHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Database\SQLiteHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Http\PackageProperty.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Http\PackageProperty.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Database\MySQLHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Database\MySQLHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\StringRegrex\ReplaceHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\StringRegrex\ReplaceHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Log\LogHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Log\LogHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Log\TxtLogHelper.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Log\TxtLogHelper.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\AESImpl.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\AESImpl.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\Debuger.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\Debuger.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\BaseImpl.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\BaseImpl.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\InteralUtil.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\InteralUtil.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\ISecurityUtil.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\ISecurityUtil.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\RC2Impl.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\RC2Impl.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\TripleDESImpl.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\TripleDESImpl.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Security\SecurityFactory.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Security\SecurityFactory.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Tip\MessageBox.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Tip\MessageBox.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Http\XmlDataTableConverter.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Http\XmlDataTableConverter.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\Http\DataTransferExtention.cs" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\Http\DataTransferExtention.cs">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\uhkey.pfx" Description="File successfully backed up as D:\我的文档\CSharpProject\HtmlForm_2008bak\Backup\UtilHelper\uhkey.pfx">
+</Event><Event ErrorLevel="0" Project="UtilHelper" Source="..\UtilHelper\UtilHelper.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="UtilHelper" Source="..\UtilHelper\UtilHelper.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="" Source="HtmlForm.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="HtmlForm.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="HtmlForm" Source="HtmlForm\HtmlForm.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="BaseLib" Source="BaseLib\BaseLib.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DefaultAction" Source="DefaultAction\DefaultAction.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

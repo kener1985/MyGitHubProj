@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单查询</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+</head>
+<body leftmargin="20">
+	<table id="dg" class="easyui-datagrid" title="员工薪资报表"  style="width:1060px;height:580px;" data-options="singleSelect:true,collapsible:false" alt="双击查看明细">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:120,align:'center'">姓名</th>
+				<th data-options="field:'holiday',width:120,align:'center'">请假天数</th>
+				<th data-options="field:'preamt',width:120,align:'right'">预支金额</th>
+				<th data-options="field:'ttl',width:120,align:'right'">总工资</th>
+				<th data-options="field:'actamt',width:120,align:'right'">实发工资</th>
+			</tr>
+			
+		</thead>
+	</table>
+
+	<!-- 工具栏 -->
+		<div id="tb" style="height:auto">
+
+		员工：
+		<select id="time" class="easyui-combobox" name="dept" style="width:80px;" data-options="editable:false">  
+    <option value="">...</option>  
+    <option value="bb">老肥</option>  
+    <option value="cc">晓冰</option>  
+    <option value="d">刘晶晶</option>  
+    <option>eitem5</option>  
+</select>  
+发工资日：<INPUT TYPE="text" NAME="gzr" value="10" style="width:20px;">
+假期扣薪：<INPUT TYPE="text" NAME="gzr" value="100" style="width:60px;">元/天
+<INPUT TYPE="checkbox" id="isFixed" onClick="isFixedClick(this);">固定工资 <span  style="display:none;" id="yx"><INPUT TYPE="text" NAME="" style="width:60px">元/月</span>
+<!--		<a href="javascript:test();" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true">查询</a>-->
+	</div>	
+</body>
+</html>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+$(function()
+{
+	$('#dg').datagrid({toolbar:'#tb',loadFilter:pagerFilter,
+	pagination:true,rownumbers:true});
+	var pager = $('#dg').datagrid('getPager');
+	pager.pagination({showRefresh:false,pageList:[15,20,25,30]});
+});
+     function test()
+	 {
+		PostData('','cmd=test');
+	 }
+	 function isFixedClick(obj)
+	 {
+		if(obj.checked)
+		{
+			$('#yx').css('display','inline');
+		}else
+		{
+			$('#yx').css('display','none');
+		}
+	 }
+//-->
+</SCRIPT>

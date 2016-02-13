@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+ </HEAD>
+
+ <BODY>
+  <INPUT TYPE="button" VALUE="load" ONCLICK="loadjs('test');">
+  <INPUT TYPE="button" VALUE="say" ONCLICK="say();">
+ </BODY>
+</HTML>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function loadjs(src)
+	{
+	var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.src = src + ".js";
+    var s = document.getElementsByTagName('head')[0];
+	
+    s.appendChild(ga);
+
+	for(var i=0;i<document.scripts.length;++i)
+	{
+		alert(document.scripts[i].src);
+		}
+	}
+//-->
+</SCRIPT>

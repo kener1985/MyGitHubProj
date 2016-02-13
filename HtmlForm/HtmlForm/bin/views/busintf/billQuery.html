@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单查询</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+</head>
+<body leftmargin="20">
+	<table id="dg" class="easyui-datagrid" title="账单列表"  style="width:1060px;height:580px;" data-options="singleSelect:true,collapsible:false" alt="双击查看明细">
+		<thead>
+			<tr>
+				<th data-options="field:'id',hidden:true">id</th>
+				<th data-options="field:'pid',hidden:true">pid</th>
+				<th data-options="field:'purunit',width:120,align:'center'">购货单位</th>
+				<th data-options="field:'payer',width:120,align:'center'">提货人</th>
+				<th data-options="field:'mobile',width:120,align:'center'">联系电话</th>
+				<th data-options="field:'date',width:120,align:'center'">日期</th>
+				<th data-options="sortable:true,field:'operator',width:120,align:'center'">制单人</th>
+			</tr>
+			
+		</thead>
+	</table>
+
+	<!-- 工具栏 -->
+		<div id="tb" style="height:auto">
+		<a href="receipt://default/popup?file=bill.html&width=1020&height=600" class="easyui-linkbutton" style="float:right" data-options="iconCls:'icon-edit',plain:true">新客户开单</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="float:right" data-options="iconCls:'icon-save',plain:true" onclick="addBill()">加单</a>	
+		<!--<a href="javascript:void(0)" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true" onclick="query()">查询</a>-->
+		日期：<input id="begdat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:false"/>&nbsp;至&nbsp;
+		<input id="enddat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:false"/>
+		购货单位：<INPUT TYPE="text" id="purunit" style="width:100px;margin:0;padding:0;">
+		<INPUT TYPE="checkbox" NAME="mainonly" checked>只显示主单
+		<a href="javascript:query();" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true">查询</a>
+	</div>	
+</body>
+</html>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+$(function()
+{
+	$('#dg').datagrid({toolbar:'#tb',loadFilter:pagerFilter,
+	onDblClickRow:onDbClick,pagination:true,rownumbers:true});
+	var pager = $('#dg').datagrid('getPager');
+	pager.pagination({showRefresh:false,pageList:[15,20,25,30]});
+}
+);
+//window.onerror = function (){return true;}
+
+
+function query()
+{
+	var pager = $('#dg').datagrid('getPager');
+		pager.pagination('select',1);
+	var b = $('#begdat').datebox('getText').replace(/\-/g,"");
+	var e = $('#enddat').datebox('getText').replace(/\-/g,"");
+	if(b > e)
+	{
+		$.messager.alert('错误','开始日期不能大于结束日期!','error');
+		return;
+	}
+	var p = 'begdat='+b;
+	p += '&enddat='+e;
+	p += '&purunit='+$('#purunit').val();
+	p += '&mainonly=' +  $('input[name=mainonly]').prop('checked');
+	p += '&cmd=querybills&invoke=queryCallback';
+	
+	//PostData('','cmd=querybills&fields=id,payer,seqnbr,purunit,operator,mobile&table=bills&invoke=queryCallback&limit=pid%3D0 ORDER BY seqnbr DESC');
+	PostData('',p);
+}
+
+function queryCallback(obj)
+{
+	var data = eval('(' + obj + ')');
+	if(data.total === 0)
+		$.messager.alert('温馨提示','查无数据！','info');
+	$('#dg').datagrid('loadData',data);
+
+	
+}
+/*********     formatter    ***********/
+
+
+/*******************/
+
+
+	function onDbClick(idx,r)
+	{
+		//%3D为 = 号
+		var initStr = '';
+
+		if(r.pid === 0)//表示主单
+			initStr = '&';
+
+		initStr += 'id='+r.id;
+
+		PostData(initStr,'cmd=popup&file=billDetail.html&width=1200&height=660');
+	}
+	function addBill()
+	{
+		var row = $('#dg').datagrid('getSelected');
+		if(row == null)
+		{
+			$.messager.alert('错误','请选择主单!','error');
+			return;
+		}
+		//alert(row.pid.length);
+		if(row.pid != '0')
+		{
+			$.messager.alert('温馨提示','选中记录不是主单!','error');
+			return;
+		}
+		PostData(row.id,'cmd=popup&file=bill.html&width=1080&height=600');	
+	}
+//-->
+</SCRIPT>

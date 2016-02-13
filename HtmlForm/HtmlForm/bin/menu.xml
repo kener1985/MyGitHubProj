@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu startup="index" query="css=default" locatebase="home">
+<!--
+  <ItemGroup name="文件[&amp;F]">
+    <Item name="保存" />
+    <Item name="不保存" />
+    <ItemGroup name="流氓兔系统">
+      <Item name="兔1" />
+      <Item name="兔2" />
+      <ItemGroup name="成家小兔">
+        <Item name="兔兔" action="DefaultAction" />
+        <Item name="有响应的哦" page="ken"/>
+      </ItemGroup>
+    </ItemGroup>
+  </ItemGroup>
+  <ItemGroup name="编辑[&amp;E]">
+    <Item name="保存" />
+    <Item name="不保存" url="receipt:///good/open/?view=ken" />
+    <ItemGroup name="流氓兔系统">
+      <Item name="兔1" />
+      <Item name="兔2" />
+      <ItemGroup name="成家小兔">
+        <Item name="兔兔" action="DefaultAction" />
+        <Item name="有响应的哦" action="open" graph="default" script="calendar,default" invoke="MyCallback" css="default" />
+      </ItemGroup>
+    </ItemGroup>
+  </ItemGroup>
+  -->
+</menu>

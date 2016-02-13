@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+<title>test</title>
+<script type="text/javascript" src="http://cn.yimg.com/i/yui/2.7.0/build/yuiloader/yuiloader-min.js"></script>
+<script type="text/javascript">
+       // var loader = new YAHOO.util.YUILoader({base:"http://cn.yimg.com/i/yui/2.7.0/build/"});
+	   function $(id)
+	   {
+			var rtn = "string" == typeof id ? document.getElementById(id) : id;
+			return rtn;
+		}
+		function test()
+		{
+			var e = window.event;
+			//for(var p in window.event)
+			//	alert(p);
+			alert(e.srcElement.tagName);
+			e.cancelBubble = true;
+		}
+		function getTarget()
+		{
+			if(event == null)
+				return null;
+			return event.srcElement;
+		}
+		function removeClass(tabs,cls)
+		{
+			for(var i =0;i<tabs.length;i++)
+			{
+				var t = tabs[i];
+				if(t.className == cls)
+					t.className = "";
+			}
+		}
+		function tabchange()
+		{
+	   var tabs = $('showmenu').getElementsByTagName('a');//获取a元素
+        var centents = $('showcenter').childNodes;//获取div元素
+       
+          var currentTab = getTarget();//获取当前触发事件
+              idx = 0;
+          for(i = 0;i<tabs.length;i++){//遍历一下tabs
+             if(tabs[i] == currentTab) idx = i;//判断如果tabs[i]等于currentTab 那么 idx=i
+          }
+          removeClass(tabs,'choose');//移除所有样式'choose'
+
+		currentTab.className = "choose";
+         // D.addClass(currentTab,'choose');//当点击当前的触发事件事，则加上样式'choose'
+		 for(var i=0;i<centents.length;i++)
+		 {
+			centents[i].style.setAttribute("display", "none");
+		  }
+		  //D.setStyle(centents,'display','none');//所有centents隐藏
+		  centents[idx].style.display = "block";
+          //D.setStyle(centents[idx],'display','block');//显示当前的centents内容
+      
+      // E.addListener(tabs,'click',showtab);//当tabs点击 showtab时，执行showtab里面的事件
+}
+</script>
+
+<style>
+.box{width:319px;height:200px;}
+.box ul{ list-style:none;padding:0px;margin:0px;height:25px;}
+.box ul li{cursor:hand;float:left;width:60px;border:1px solid red;border-bottom-width:0px;height:20px;margin:5px 5px 0px 0px;text-align:center}
+.box ul li .choose{height:21px;line-height:21px;}
+.box ul li a{display:block;width:60px;height:20px;text-decoration:none;}
+.box ul li a.choose{height:21px;line-height:21px;line-height:21px;background:#ccccff;}
+.box ul li a:hover{height:21px;line-height:21px;line-height:20px;text-decoration:none;background:#abcdef; }
+.box div{height:174px;background:#ccccff;}
+.box .hidden{display:none;}
+</style>
+</head>
+
+<body>
+<div class="box">
+   
+ <ul id="showmenu">
+        <li><a  class="choose" onclick="tabchange()">aaa</a></li>
+        <li><a  onclick="tabchange()">bbb</a></li>
+        <li><a   onclick="tabchange()">ccc</a></li>
+    </ul>
+    <div id="showcenter">
+        <div class="J_centent">1111</div>
+        <div class="J_centent hidden">2222</div>
+        <div class="J_centent hidden">3333</div>
+    </div>
+
+    
+</div>
+<script type="text/javascript">
+    
+</script>
+<script type="text/javascript">
+//loader.require(['dom', 'event']);
+//loader.onSuccess = function(){
+//
+
+//loader.insert();
+</script>
+
+</body>
+</html>

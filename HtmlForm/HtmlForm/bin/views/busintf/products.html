@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>货品管理</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+</head>
+<body leftmargin="20">
+	<table id="dg" class="easyui-datagrid" title="产品列表"  style="width:1060px;height:580px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" alt="双击查看样版">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:100,hidden:true">id</th>
+				<th data-options="field:'status',width:100,hidden:true">status</th>
+				<th data-options="field:'productid',width:100,align:'center',editor:{type:'text',options:{required:true}}">实际编号</th>
+				<th data-options="field:'innerid',width:100,align:'center',editor:{type:'text',options:{required:true}}">编号</th>
+				<th data-options="field:'colornum',width:60,align:'center',editor:{type:'text',options:{required:true}}">色号</th>
+				<th data-options="field:'size',width:60,align:'center',editor:{type:'text',options:{required:true}}">规格</th>
+				<th data-options="field:'name',width:180,align:'center',editor:{type:'text',options:{required:true}}">产品名称</th>
+				<th data-options="sortable:true,field:'price',width:100,align:'right',
+				editor:{type:'numberbox',options:{precision:2,min:0,max:9999999999999.99,required:true}},
+				formatter:decimalFormater">价格(元/块)</th>
+				<th data-options="sortable:true,field:'cost',width:100,align:'right',
+				editor:{type:'numberbox',options:{precision:2,min:0,max:9999999999999.99,required:true}},
+				formatter:decimalFormater">成本(元/块)</th>
+				<th data-options="formatter:storeFormatter,sortable:true,field:'storenum',width:100,align:'right',editor:{type:'numberbox',options:{min:0,max:999999999,required:true}}">库存量(块)</th>
+				<th data-options="field:'packagenum',width:52,align:'center',editor:{type:'numberbox',options:{min:1,max:10000,required:true}}">包装数</th>
+				<th data-options="field:'position',width:80,align:'center',editor:{type:'combobox',options:{url:'../data/position.json',multiple:false,editable:false,valueField:'id',textField:'id'}},formatter:positionFormatter">仓位</th>
+				<th data-options="field:'picture',width:40,formatter:picFormatter,align:'center',editor:'picSelector'">附图</th>
+			</tr>
+			
+		</thead>
+	</table>
+
+
+	<!-- 工具栏 -->
+		<div id="tb" style="height:auto">
+		
+		<a id="btnER" href="javascript:void(0)" class="easyui-linkbutton" style="float:right;margin-left:10px" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+		<div id="editBar" style="display:none">
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;margin-left:10px" data-options="iconCls:'icon-save',plain:true" onclick="save('products')">保存</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;margin-left:10px" data-options="iconCls:'icon-remove',plain:true" onclick="remove()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;margin-left:10px" data-options="iconCls:'icon-add',plain:true" onclick="add()">新增</a>
+		
+		</div>
+		<!--<a href="javascript:newArrival()" class="easyui-linkbutton" style="float:right" data-options="iconCls:'icon-edit',plain:true">进货</a>-->
+		<a href="javascript:void(0)" id="mb" class="easyui-menubutton"    style="float:right"  
+        data-options="menu:'#mbmm',iconCls:'icon-edit'">库存管理</a>  
+<div id="mbmm" style="width:150px;">  
+    <div data-options="iconCls:'icon-edit'" onclick="storeMgr(1);">修改库存</div>  
+    <div data-options="iconCls:'icon-search'" onclick="storeMgr(2);">产品库存历史</div>  
+</div>  
+
+		<!--<a href="javascript:void(0)" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true" onclick="query()">查询</a>-->
+		<input id="search" class="easyui-searchbox" data-options="prompt:'请输入关键字',menu:'#smm',searcher:query,width:220"></input>
+	<div id="smm" style="width:120px">
+		<div data-options="name:'all',iconCls:'icon-ok'">所有货品</div>
+		<div role="mgr" data-options="name:'productid',iconCls:'icon-ok'">实际编号</div>
+		<div data-options="name:'innerid',iconCls:'icon-ok'">编号</div>
+		<div data-options="name:'storelessthan',iconCls:'icon-ok'">库存小于</div>
+		<!--<div role="mgr" data-options="name:'opr',iconCls:'icon-ok'">操作员为</div>-->
+	</div>
+	</div>
+	
+		<div id="picdlg" class="easyui-dialog" title="货品样版" data-options="iconCls:'icon-save',resizable:true,modal:false,closed:true,buttons: '#dlg-buttons'" style="width:600px;height:615px;padding:10px">
+		<img width="560" height="520">
+	</div>
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#picdlg').dialog('close')">关闭</a>
+	</div>
+	
+</body>
+</html>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var editIdx = undefined;
+$(function()
+{	
+	$('#dg').datagrid({onClickRow:onRowClick,toolbar:'#tb',loadFilter:pagerFilter,pagination:true,rownumbers:true});
+	var pager = $('#dg').datagrid('getPager');
+	pager.pagination({showRefresh:false,pageList:[15,20,30]});
+	$('#btnER').bind('click',edit);
+	PostData('','cmd=queryroleinfo&invoke=SetRoleView');
+	}
+);
+
+	function SetRoleView(role)
+	{
+		//alert(role);
+		if(role != 'MGR')
+		{
+			$('#dg').datagrid('hideColumn','innerid');
+			$('#dg').datagrid('hideColumn','cost');
+			$('#btnER').css('display','none');
+			$('#smm div[role=mgr]').css('display','none');
+		}
+	}
+
+	function storeMgr(type)
+	{
+		if($('#editBar').css('display') === 'block')
+		{
+			$.messager.alert('','请先退出编辑模式','error');
+			return;
+		}
+		var row = $('#dg').datagrid('getSelected');
+		if(row === null)
+		{
+			$.messager.alert('','请选择产品','error');
+			return;
+		}
+		var qp = '';
+		if(type === 1)//修改
+			qp = 'cmd=storechange&num=' + row.storenum+'&pnum='+row.packagenum+'&invoke=updateStoreNum';
+		else
+			qp = 'cmd=popup&file=storehistory.html&width=800&height=688';
+		PostData(row.id,qp);	
+		//$('#dg').datagrid('updateRow',{index:idx,row:{storenum:10}});
+	}
+	function updateStoreNum(newnum,suc)
+	{
+		if(suc)
+		{
+			var row = $('#dg').datagrid('getSelected');
+			var idx = $('#dg').datagrid('getRowIndex',row);
+			$('#dg').datagrid('updateRow',{index:idx,row:{storenum:newnum}});
+			$.messager.alert('','更新成功','info');
+		}else
+		$.messager.alert('','更新失败','error');
+	}
+/************        editors        ***************/
+$.extend($.fn.datagrid.defaults.editors, {   
+    picSelector: {   
+        init: function(container, options){   
+			var row = $('#dg').datagrid("getSelected");
+			var src = '';
+
+			if(row.picture != null && row.picture != undefined && row.picture != '')
+				src = row.picture;
+
+            var input = $('<a href="receipt://default/selpic?src=' + src + '"></a>').appendTo(container);   
+            return input;   
+        },   
+        getValue: function(target){   
+
+			return $(target).val();   
+        },   
+        setValue: function(target, value){   
+			
+            $(target).val(value);   
+			if(value === undefined || value === null || value ==='')
+				$(target).text('无');   
+			else 
+				$(target).text(value);   
+			
+        },   
+        resize: function(target, width){   
+            var input = $(target);   
+            if ($.boxModel == true){   
+                input.width(width - (input.outerWidth() - input.width()));   
+            } else {   
+                input.width(width);   
+            }   
+        }   
+    }   
+});  
+
+
+/*********     formatter    ***********/
+	function storeFormatter(v,r)
+	{
+		var num = parseInt(v);
+		if(num < 100)//100以下设为红色
+		{
+			return '<b style="color:red">'+v+'</b>';
+		}
+		return v;
+	}
+	function decimalFormater(v,r)
+	{
+			v += '';
+			if(v!='' && v.indexOf('.') == -1)
+				return v+'.00';
+		if(v === '')
+			return '0.00';
+
+		return v;
+	}
+		function picFormatter(v,r)
+	{
+			if(v === null || v === '')
+				return '<b style="color:red">无</b>';
+			return  '<b style="color:green">有</b>';
+	}
+	function positionFormatter(v,r)
+	{
+		
+		if(v === '')
+		{
+			r.position = '新仓';
+			return '新仓';
+		}
+
+		return v;
+	}
+
+/*******************/
+
+	function setSelectedPicture(src)
+	{
+		var row = $('#dg').datagrid("getSelected");
+		var idx = $('#dg').datagrid("getRowIndex",row);
+		var edt = $('#dg').datagrid("getEditor",{index:idx,field:'picture'});
+
+		edt.target.text(src);
+		edt.target.val(src);
+		
+		edt.target.attr('href','receipt://default/selpic?src=' + src);
+		var img = $('#picdlg').find('img');
+		img.attr('src',"../images/" + src);
+		$('#picdlg').dialog('open');
+
+	}
+
+	function query(value,name)
+	{		
+		if($('#editBar').css('display') === 'block')
+		{
+			alert('请先退出编辑模式');
+			return;
+		}
+		var pager = $('#dg').datagrid('getPager');
+		pager.pagination('select',1);
+		var fields = $('#dg').datagrid('getColumnFields');
+		var p = 'table=products&fields=' + fields ;
+		p += '&invoke=ReturnJson&limit=status!%3d1';
+		
+		if(name === 'storelessthan')
+		{
+		    var num = parseInt(value);
+			if(isNaN(num) === true)
+			{
+				$.messager.alert('操作无效','请输入有效数字','error');
+				return;
+			}
+			p += ' AND storenum%3C' + num
+		}else if(name != 'all')
+		{
+			if(value.trim() === '')
+			{
+				$.messager.alert('操作无效','请输入关键字','error');
+				return;
+			}
+			p += ' AND ' + name +" LIKE '%25" + value + "%25'";
+		}
+		p += ' order by actcnt desc';
+		SentAction('default','select',p);
+	}
+	function ReturnJson(json)
+	{
+		var obj =eval( "(" + json + ")");
+		if(obj.total === 0)
+			$.messager.alert('温馨提示','查无数据！','info');
+
+		$('#dg').datagrid("loadData",obj);
+	}
+
+	function onRowClick(idx)
+	{
+		if(idx === editIdx || $('#editBar').css('display') === 'none')
+		{return;}
+		
+		if(endEdit())
+		{
+			$('#dg').datagrid('selectRow',idx).
+			datagrid("beginEdit",idx);
+			 editIdx = idx;
+			var row = $('#dg').datagrid('getSelected');
+			if(row == null || row.id === '') return;
+			var ed = $('#dg').datagrid('getEditor', {index:idx,field:'storenum'});
+
+			if(ed === null || row.id === undefined || row.id === '')return;
+			
+			$(ed.target).prop('readonly','true');
+		}else
+		{
+			$('#dg').datagrid('selectRow',editIdx);
+		}
+	}
+	function endEdit()
+	{
+			if($('#editBar').css('display') === 'none')return false;
+			if(editIdx === undefined) return true;
+
+			if($('#dg').datagrid('validateRow', editIdx))
+			{
+				
+				$('#dg').datagrid('endEdit',editIdx);
+				editIdx = undefined;
+				return true;
+			}else return false;
+	}
+	function save(table)
+	{
+		if(endEdit() == false) return;
+
+		var rows = $('#dg').datagrid('getChanges');
+		var delRows = $('#dg').datagrid('getChanges','deleted');
+		var delIds = '';
+		for(var i =0;i<delRows.length;++i)
+		{
+			if(i!=0)
+				delIds += ',';
+
+			delIds += delRows[i].id;
+		}
+
+		if(rows.length > 0)
+		{
+			var fields = $('#dg').datagrid('getColumnFields') + '';
+			var p = 'table=' + table;
+			p += "&cmd=update&fields=" + fields;
+			p += "&delids=" + delIds;
+			p += '&invoke=acceptChange';
+			p += '&statusfield=status';
+			PostData(ToEasyUIJson(fields,rows),p);
+		}
+		
+	}
+	function acceptChange()
+	{
+		$('#dg').datagrid('acceptChanges');
+		$('#btnER').unbind('click',reject);
+		$('#btnER').bind('click',edit);
+		editBarChange();
+		var name = $('#search').searchbox('getName');
+		var value = $('#search').searchbox('getValue');
+		query(value,name);
+	}
+	function add()
+	{
+		if (endEdit())
+		{
+			$('#dg').datagrid('appendRow',{});
+			editIdx = $('#dg').datagrid('getRows').length-1;
+			$('#dg').datagrid('selectRow', editIdx)
+			.datagrid('beginEdit', editIdx);
+		}
+		}
+		function remove()
+		{
+			if (editIdx == undefined){return}
+			//endEdit();
+			$('#dg').datagrid('cancelEdit', editIdx)
+					.datagrid('deleteRow', editIdx);
+			editIdx = undefined;
+		}
+	function reject()
+	{
+			$.messager.confirm('注意保存数据', '是否撤销当前修改数据并退出编辑模式?', function(r){
+				if(r == false) return;
+				
+			$('#dg').datagrid('rejectChanges');
+			editIdx = undefined;
+			$('#btnER').unbind('click',reject);
+			$('#btnER').bind('click',edit);
+			editBarChange();
+			});
+		}
+	function edit()
+	{
+		var ed = $('#editBar');
+		var er = $('#btnER');
+		if(ed.css('display') === 'block' && endEdit() == false)return;
+
+		er.unbind('click',edit);
+		er.bind('click',reject);
+		editBarChange();
+		
+	}
+	function editBarChange()
+	{
+		var ed = $('#editBar');
+		var er = $('#btnER');
+		if(ed.css('display') === 'none')
+		{
+			er.linkbutton({iconCls: 'icon-undo',text:'撤销' });
+			ed.css({display:'block'});
+		}
+		else 
+		{
+			er.linkbutton({iconCls: 'icon-edit',text:'编辑' });
+			ed.css({display:'none'});
+		}
+	}
+	function onDbClick(idx,r)
+	{
+		if(r.picture === '')return;
+		var img = $('#picdlg').find('img');
+		img.attr('src',"../images/" + r.picture);
+		$('#picdlg').dialog('open');
+		
+	}
+//-->
+</SCRIPT>

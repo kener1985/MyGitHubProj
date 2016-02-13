@@ -1,0 +1,55 @@
+D:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.dll
+D:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.pdb
+D:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.dll
+D:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.pdb
+D:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.dll
+D:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.pdb
+D:\C#Project\EasyDesktop\PRTest\obj\Release\ResolveAssemblyReference.cache
+D:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.dll
+D:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.pdb
+I:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.dll
+I:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.pdb
+I:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.dll
+I:\C#Project\EasyDesktop\PRTest\bin\Release\XOConverter.dll
+I:\C#Project\EasyDesktop\PRTest\bin\Release\XOConverter.pdb
+I:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.pdb
+I:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.dll
+I:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.pdb
+I:\C#Project\EasyDesktop\PRTest\obj\Release\ResolveAssemblyReference.cache
+I:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.dll
+I:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.pdb
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.pdb
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.pdb
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.pdb
+D:\我的文档\C#Project\EasyDesktop\PRTest\obj\Release\ResolveAssemblyReference.cache
+D:\我的文档\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\PRTest.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\PRTest.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\XOConverter.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\XOConverter.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\obj\Release\PRTest.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\PRTest\obj\Release\PRTest.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.dll
+G:\C#Project\EasyDesktop\PRTest\bin\Release\PRTest.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.dll
+G:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules_Accessor.pdb
+G:\C#Project\EasyDesktop\PRTest\obj\Release\ResolveAssemblyReference.cache
+G:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.dll
+G:\C#Project\EasyDesktop\PRTest\obj\Release\PRTest.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\UtilHelper.dll
+G:\C#Project\EasyDesktop\PRTest\bin\Release\UtilHelper.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\System.Data.SQLite.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\UtilHelper.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\System.Data.SQLite.dll
+D:\我的文档\C#Project\EasyDesktop\PRTest\bin\Release\UtilHelper.pdb
+G:\C#Project\EasyDesktop\PRTest\bin\Release\HVH_Ken_Modules.dll

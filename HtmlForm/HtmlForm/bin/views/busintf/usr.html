@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单查询</title>
+	<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/basefunc.js"></script>
+</head>
+<body leftmargin="20">
+<!--
+	<table id="dg" class="easyui-datagrid" title="库存变化记录"  style="width:700px;height:500px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
+		<thead>
+			<tr>
+				<th data-options="field:'date',width:160,align:'center'">日期</th>
+				<th data-options="field:'type',width:60,align:'center',formatter:typeFormatter">类型</th>
+				<th data-options="field:'num',width:100,align:'right'">数量</th>
+				<th data-options="field:'finalstore',width:100,align:'right'">最终库存</th>
+				<th data-options="field:'mark',width:160,align:'center'">备注</th>
+				<th data-options="field:'opr',width:80,align:'center'">操作人</th>
+			</tr>
+			
+		</thead>
+	</table>
+-->
+<form id="ff">
+<div style="display:inline;margin-right:18px;">用户名：</div><input id="name" style="width:160px;" class="easyui-validatebox" data-options="required:true" />  
+<br/>
+<div style="display:inline;margin-right:18px;">原密码：</div><input id="oripsw" style="width:160px;" type="password"  class="easyui-validatebox" data-options="required:true"   /><br/>
+
+<div style="display:inline;margin-right:18px;">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div><input id="psw1" style="width:160px;" type="password"  class="easyui-validatebox" data-options="required:true"   />  <br/>
+<div style="display:inline;margin-right:2px;">密码确认：</div><input id="psw2" type="password" style="width:160px;" class="easyui-validatebox" data-options="required:true"  />  <br/>
+</form>
+<a id="btn" href="javascript:submit();" class="easyui-linkbutton" data-options="">修改</a>  
+</body>
+</html>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+$(function()
+{
+	PostData('','cmd=queryroleinfo&invoke=setName');
+	//$('#dg').datagrid({loadFilter:pagerFilter,pagination:true,rownumbers:true});
+	//var pager = $('#dg').datagrid('getPager');
+	//pager.pagination({showRefresh:false,pageList:[15]});
+}
+);
+function setName(role,name)
+{
+	$('#name').val(name);
+		//alert(name);
+}
+function submit()
+{
+	var name = $('#name').val().trim();
+	var opsw = $('#oripsw').val().trim();
+	var psw1 = $('#psw1').val().trim();
+	var psw2 = $('#psw2').val().trim();
+
+	if(psw1 != psw2)
+	{
+		$.messager.alert('温馨提示','密码不一致！','error');  
+		return;
+	}
+
+	if(name === '' || psw1 === '')
+	{
+		$.messager.alert('温馨提示','要素不能为空！','error');  
+		return;
+	}
+	var s = 'name='+name;
+	s += '&oripsw=' + opsw;
+	s += '&psw='+psw1;
+	s += '&cmd=updateuserinfo';
+	PostData('',s);
+}
+function cb(msg)
+{
+	$.messager.alert('温馨提示',msg,'info');  
+	$('#psw1').val('');
+	$('#psw2').val('');
+	$('#oripsw').val('');
+}
+//-->
+</SCRIPT>

@@ -1,0 +1,1 @@
+mysqldump.exe -uroot -pMYSQL_hvh1985 jhdb members > backups/backup_%date:~0,4%%date:~5,2%%date:~8,2%.dat

@@ -1,0 +1,40 @@
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.dll
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.pdb
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\XOConverter.dll
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\XOConverter.pdb
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\ResolveAssemblyReference.cache
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.AppParamFrm.resources
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.csproj.GenerateResource.Cache
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.dll
+I:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\bin\XOConverter.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\bin\XOConverter.pdb
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.AppParamFrm.resources
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.dll
+C:\Documents and Settings\Administrator\桌面\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.pdb
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.dll
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.pdb
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\System.Data.SQLite.dll
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\UtilHelper.dll
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\bin\UtilHelper.pdb
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\ResolveAssemblyReference.cache
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.AppParamFrm.resources
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.csproj.GenerateResource.Cache
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.dll
+G:\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.pdb
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\ResolveAssemblyReference.cache
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.AppParamFrm.resources
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.SelectFrm.resources
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.dll
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\bin\HVH_Ken_Modules.pdb
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\bin\System.Data.SQLite.dll
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\bin\UtilHelper.dll
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\bin\UtilHelper.pdb
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.dll
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\HVH_Ken_Modules.pdb
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\GenerateResource.read.1.tlog
+D:\我的文档\C#Project\EasyDesktop\HVH_Ken_Modules\obj\Release\GenerateResource.write.1.tlog
