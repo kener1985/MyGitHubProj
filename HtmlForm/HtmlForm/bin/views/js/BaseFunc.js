@@ -222,7 +222,7 @@ function PostData(data,query)
 	dataEle.setAttribute("type","hidden");
 	dataEle.setAttribute('name','data');
 	dataEle.setAttribute('value',data);
-
+	//alert(data)
 	form.appendChild(dataEle);
     //s += "<input type='hidden' name='type' value='test'>";
    // form.innerHTML = s;

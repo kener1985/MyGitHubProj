@@ -88,6 +88,12 @@
     </Compile>
     <Compile Include="BillPrinter.cs" />
     <Compile Include="DefAction.cs" />
+    <Compile Include="ModifyBillInfoFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyBillInfoFrm.Designer.cs">
+      <DependentUpon>ModifyBillInfoFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PaybackFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <EmbeddedResource Include="AddProductFrm.resx">
       <DependentUpon>AddProductFrm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyBillInfoFrm.resx">
+      <DependentUpon>ModifyBillInfoFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PaybackFrm.resx">
       <DependentUpon>PaybackFrm.cs</DependentUpon>

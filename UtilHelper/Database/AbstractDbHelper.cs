@@ -695,6 +695,7 @@ namespace UtilHelper.Database
             DbCommand cmd = NewCommand(SqlString, m_con);
             AddParametersTo(cmd, ClearParams);
             T rtn = cmd.ExecuteScalar() as T;
+            
             return rtn;
         }
         public T ExcuteForUnique<T>(string SqlString) where T : class

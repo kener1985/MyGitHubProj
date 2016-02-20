@@ -120,7 +120,7 @@
 		<div style="position:absolute;top:200px;left:20px">
 		<div id="content" class="easyui-panel" title="账单" style="width:960px;overflow-x:hidden" data-options="collapsible:true">
 		<div style="margin:10px 0 10px 6px">
-		购货单位：<input type="text" name="purunit" >
+		收货人：<input type="text" name="purunit" >
 		<label style="margin-left:500px">日期：<label name="date"></label></label>
 		页码：<label name="pagecode">1</label>
 		<input type="hidden" name="pid" value="0">
@@ -145,7 +145,7 @@
 
 		<div style="margin-top:20px">
 		<label style="margin:0 150px 0 10px">制单人：<label name="operator"></label></label>
-		<label style="margin-right:150px">提货人：<input type="text" name="payer" style="width:200px"></label>
+		<label style="margin-right:150px">签收人：<input type="text" name="payer" style="width:200px"></label>
 		电话： <input type="text" name="mobile"  style="width:200px" ></div>
 		</div>
 		
@@ -328,7 +328,7 @@ function restoreList(list)
 					
 				if(total > 0 && num > total)
 				{
-					$.messager.alert('提示','库存量不足，请检查!','warn');
+					$.messager.alert('提示','库存量不足，请检查!','warning');
 					//$('input[name=num]').focus();
 					//$('input[name=num]').select();
 					return ;

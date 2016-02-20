@@ -133,5 +133,16 @@ namespace BaseLib
 
             return dt;
         }
+
+        public static LogInfoClass getUserInfoByName(string name)
+        {
+            Dictionary<string, LogInfoClass> users = GlobalVar.Users;
+            foreach (KeyValuePair<string, LogInfoClass> pair in users)
+            {
+                if (pair.Value.Name.Equals(name))
+                    return pair.Value;
+            }
+            return null;
+        }
     }
 }

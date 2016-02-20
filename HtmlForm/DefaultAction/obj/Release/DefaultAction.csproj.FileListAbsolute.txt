@@ -40,3 +40,15 @@ D:\CSharpProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.WidgeCalFrm.resou
 D:\CSharpProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.csproj.GenerateResource.Cache
 D:\CSharpProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.dll
 D:\CSharpProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.pdb
+D:\MyGithubProj\MyGitHubProj\HtmlForm\HtmlForm\bin\actions\DefaultAction.dll
+D:\MyGithubProj\MyGitHubProj\HtmlForm\HtmlForm\bin\actions\DefaultAction.pdb
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.csprojResolveAssemblyReference.cache
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.AddProductFrm.resources
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.PaybackFrm.resources
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.PopupFrm.resources
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.StoreChangeFrm.resources
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.WidgeCalFrm.resources
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.csproj.GenerateResource.Cache
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.dll
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.pdb
+D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.ModifyBillInfoFrm.resources

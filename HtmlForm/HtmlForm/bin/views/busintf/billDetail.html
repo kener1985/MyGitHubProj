@@ -34,9 +34,9 @@
         data-options="closable:false,   
                 collapsible:false,minimizable:false,maximizable:false">  
 	<table width="400px" name="head">
-				<tr> <td >购货单位：</td><td name="purunit"></td><td>提货人：</td><td name="payer"></td></tr>
+				<tr> <td >收货人：</td><td name="purunit"></td><td>签收人：</td><td name="payer"></td></tr>
 				<tr> <td>购货日期：</td><td name="date"></td><td>制单人：</td><td name="opr"></td></tr>
-				<tr> <td>联系电话：</td><td name="mobile"></td><td>页码：</td><td name="pagecode"></td></tr>
+				<tr> <td>联系电话：</td><td name="mobile"></td><td><!--页码：--></td><td></td></tr>
 				</table>
 
 	<table id="billitem" class="easyui-datagrid" title=""  style="width:830px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
@@ -64,7 +64,7 @@
 				<th data-options="field:'date',width:160,align:'center'">日期</th>
 				<th data-options="field:'type',width:60,align:'center',formatter:amttypeformatter">类型</th>
 				<th data-options="field:'amount',width:100,align:'right',formatter:priceformatter">金额</th>
-				<th data-options="field:'opr',width:100,align:'center'">操作员</th>
+				<th data-options="field:'__name__',width:100,align:'center'">操作员</th>
 				<th data-options="field:'mark',width:210,align:'left'">备注</th>
 		</thead>
 	</table>
@@ -86,7 +86,7 @@
 		var id = p.substring(idx+1);
 		var rcp = "cmd=querybills";
 		rcp += '&invoke=showBillDetail';
-		
+
 		if(p.charAt(1) === '&')//主单
 			rcp += '&main=true';
 	//alert(p);
@@ -110,7 +110,7 @@
 		//alert(r.purunit);
 		$('#detail td[name=purunit]').text(r.purunit);
 		$('#detail td[name=date]').text(r.date);
-		$('#detail td[name=opr]').text(r.operator);
+		$('#detail td[name=opr]').text(r.__name__);
 		$('#detail td[name=pagecode]').text(r.pagecode);
 		$('#detail td[name=mobile]').text(r.mobile);
 		$('#detail td[name=payer]').text(r.payer);
@@ -219,6 +219,11 @@ function print()
 		var items = $('#billitem').datagrid("getRows");
 		var arr = new Array();
 		var total = 0.00;
+	if(items.length === 0)
+	{
+		$.messager.alert('温馨提示','请先选择账单','warning');
+		return;
+	}
 		$.each(items,function(n,r){
 			var obj = {};
 			var pid = r.innerid;
@@ -227,12 +232,12 @@ function print()
 				pid = r.productid;
 			obj.prodnbr = pid;
 			obj.sh = r.colornum;
-			obj.size = r.size;
+			obj.size = (r.size == null ? '':r.size);
 			obj.c_num = r.c_num;
 			obj.saleprice = r.saleprice;
 			obj.total = t;
 			total += t;
-			obj.mark = r.mark;
+			obj.mark = (r.mark == null ? '' : r.mark);
 			arr.push(obj);
 		})
 		p+= '&totalamt=' + total.toFixed(2) + '元    （大写:' + ToUpperCase(total.toFixed(2)) + '）';

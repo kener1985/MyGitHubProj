@@ -439,7 +439,7 @@ namespace BaseLib
                 etb.Table = GlobalVar.DBHelper.MultiTableSelect(sz.ToString(), false);//第二个参数无作用
                 ivk = "showDetail";
             }
-
+            GlobalVar.transferCodeToName(etb.Table, "opr");
             GlobalVar.Container.InvokeScript(ivk, new object[] { etb.ToJson() });
         }
 
@@ -494,7 +494,7 @@ namespace BaseLib
 
         public void DoAction(StrDictionary sd)
         {
-            string name = GlobalVar.LogInfo.WorkCode;
+            string name = GlobalVar.LogInfo.Name;
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string phis = String.Empty;
             int pagecode;
@@ -757,7 +757,14 @@ namespace BaseLib
 
             string qs = "";
             if (String.IsNullOrEmpty(sd["data"]))
-                qs = MakeQueryStr(sd);
+            {
+                qs = MakeQueryBillStr(sd);
+                if (qs == null)
+                {
+                    GlobalVar.Container.InvokeScript(sd["invoke"], new object[] { "" });
+                    return;
+                }
+            }
             else//查明细
             {
                 StringBuilder sz = new StringBuilder();
@@ -766,9 +773,9 @@ namespace BaseLib
                 {
                     sz.Append("id=").Append(id).Append(" OR pid=").Append(id);
                 }
-                else//记录为副单
+                else//记录为副单，先查出主单id
                 {
-                    string pid = GlobalVar.DBHelper.ExcuteForUnique<string>("select pid from bills where id=" + id);
+                    object pid = GlobalVar.DBHelper.ExcuteForUnique("select pid from bills where id=" + id);
                     sz.Append("id=").Append(pid).Append(" OR pid=").Append(pid);
                 }
                 sz.Append(" ORDER BY seqnbr DESC");
@@ -787,14 +794,16 @@ namespace BaseLib
             //MessageBox.Show(tbl.Rows.Count.ToString());
             etb.Table = tbl;
             GlobalVar.AddDateFildFromSeqnbr(etb.Table, false);
+            GlobalVar.transferCodeToName(etb.Table, "operator");
             GlobalVar.Container.InvokeScript(sd["invoke"], new object[] { etb.ToJson(), sd["data"] });
 
         }
-        private string MakeQueryStr(StrDictionary sd)
+        private string MakeQueryBillStr(StrDictionary sd)
         {
             string b = sd["begdat"];
             string e = sd["enddat"];
             string punit = sd["purunit"];
+            string opr = sd["operator"];
             bool mo = sd["mainonly"] == "true";
             StringBuilder sz = new StringBuilder();
             if (String.IsNullOrEmpty(b) == false && String.IsNullOrEmpty(e) == false)
@@ -813,16 +822,26 @@ namespace BaseLib
                 sz.Append("purunit LIKE @punit");
                 GlobalVar.DBHelper.AddCustomParam("@punit", "%" + punit + "%");
             }
+           
+            if (String.IsNullOrEmpty(opr) == false)
+            {
+                if (sz.Length > 0)
+                    sz.Append(" AND ");
 
+                sz.Append("operator = @operator");
+                GlobalVar.DBHelper.AddCustomParam("@operator", opr);
+            }
+           
             if (mo)//只查询主单
             {
                 if (sz.Length > 0)
                     sz.Append(" AND ");
-                sz.Append("pid=0 ORDER BY seqnbr DESC");
+                sz.Append("pid=0");
             }
 
             if (sz.Length == 0)
-                sz.Append("1=1 ORDER BY seqnbr DESC");
+                sz.Append("1=1");
+            sz.Append(" ORDER BY seqnbr DESC");
             return sz.ToString();
         }
 
@@ -833,6 +852,28 @@ namespace BaseLib
         }
 
         #endregion
+    }
+
+    public class ModifyBillInfoAction : IAction
+    {
+        #region IAction 成员
+        public void DoAction(StrDictionary sd)
+        {
+            string bid = sd["billid"];
+            ModifyBillInfoFrm modifyFrm = new ModifyBillInfoFrm(bid);
+            DialogResult result =  modifyFrm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                GlobalVar.Container.InvokeScript("query",null);
+            }
+        }
+        public bool IsMe(string schema)
+        {
+            return schema.Equals("modifybill");
+
+        }
+        #endregion
+
     }
     public class UpdateUserInfoAction : IAction
     {
