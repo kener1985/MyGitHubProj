@@ -70,7 +70,7 @@ $(function()
 		$(':input').removeAttr('title');
 		
 		id = id.substring(1);
-		PostData('','fields=*&cmd=select&table=storenumhistory&invoke=returnJson&longdate=true&limit=productid%3d'+id + ' order by seqnbr desc');
+		PostData('','fields=*&cmd=select&table=storenumhistory&invoke=returnJson&longdate=true&limit=productid%3d'+id + ' order by id desc');
 	}
 	function onRowSelected(rowIndex, rowData)
 	{

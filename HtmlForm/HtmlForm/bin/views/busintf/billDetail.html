@@ -19,10 +19,14 @@
 <a href="javascript:print();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">打印</a>
 <a href="javascript:payback();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">还款</a>
 <a href="javascript:debtdetail();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">统计</a>
+<a href="javascript:modifyBill()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">修改</a>
+<!--<a href="javascript:test()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">test</a>-->
 <div >
 <table id="bill" class="easyui-datagrid" title="账单列表"  style="width:300px;height:560px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" alt="双击查看明细">
 		<thead>
 			<tr>
+				<th data-options="field:'id',hidden:true">id</th>
+				<th data-options="field:'seqnbr',hidden:true">seqnbr</th>
 				<th data-options="field:'date',width:100,align:'center'">日期</th>
 				<th data-options="field:'type',width:60,align:'center',formatter:typeformatter">类型</th>
 		</thead>
@@ -30,7 +34,7 @@
 	</div>
 	<div style="position:absolute;top:43px;left:313px;" id="billdetail">
 	<div id="detail" class="easyui-panel" title="账单明细"    
-        style="width:860px;height:560px;padding:10px;background:#fafafa;"  
+        style="width:850px;height:560px;padding:10px;background:#fafafa;"  
         data-options="closable:false,   
                 collapsible:false,minimizable:false,maximizable:false">  
 	<table width="400px" name="head">
@@ -39,7 +43,7 @@
 				<tr> <td>联系电话：</td><td name="mobile"></td><td><!--页码：--></td><td></td></tr>
 				</table>
 
-	<table id="billitem" class="easyui-datagrid" title=""  style="width:830px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
+	<table id="billitem" class="easyui-datagrid" title=""  style="width:820px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
 		<thead>
 			<tr>
 				<!--<th data-options="field:'id',width:100,hidden:true">id</th>-->
@@ -57,7 +61,7 @@
 	</div>
 	
 	<div style="position:absolute;top:43px;left:313px;display:none" id="debtdetail">
-	<table id="debtdetaillist" class="easyui-datagrid" title="账务统计"  style="width:660px;height:500px;" data-options="remoteSort:false,singleSelect:true,collapsible:false,rownumbers:true" >
+	<table id="debtdetaillist" class="easyui-datagrid" title="账务统计"  style="width:680px;height:500px;" data-options="remoteSort:false,singleSelect:true,collapsible:false,rownumbers:true" >
 		<thead>
 			<tr>
 				<!--<th data-options="field:'id',width:100,hidden:true">id</th>-->
@@ -70,43 +74,77 @@
 	</table>
 	总欠款：<label id="zqk" class="smy"></label>总还款：<label id="zhk" class="smy"></label>实欠款：<label id="sqk" class="smy"></label>
 	</div>
+
+<div id="modifyBillInfo" style="position:absolute;top:43px;left:313px;display:none">
+	<div  class='easyui-panel' title='修改账单' style="width:850px;height:560px;padding:10px;background:#fafafa;"  data-options="closable:false,   
+                collapsible:false,minimizable:false,maximizable:false">
+	<table width="600px" name="head">
+				<tr> <td >收货人：</td><td name="purunit"><input type="text"></td><td>签收人：</td><td name="payer"><input type="text"></td></tr>
+				<tr> <td>购货日期：</td><td name="date"></td><td>制单人：</td><td name="opr"></td></tr>
+				<tr> <td>联系电话：</td><td name="mobile"><input type="text"></td><td><!--页码：--></td><td></td></tr>
+				</table>
+
+	<table id="modifyBillList" class="easyui-datagrid" title=""  style="width:820px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
+		<thead>
+			<tr>
+				<!--<th data-options="field:'id',width:100,hidden:true">id</th>-->
+				<th data-options="field:'productid',width:100,align:'center',formatter:idformatter">品名</th>
+				<th data-options="field:'colornum',width:80,align:'center'">色号</th>
+				<th data-options="field:'size',width:100,align:'center'">规格</th>
+				<th data-options="field:'c_num',width:100,align:'center'">数量</th>
+				<th data-options="field:'name',width:100,align:'center'">名称</th>
+				<th data-options="field:'saleprice',width:100,align:'right',formatter:priceformatter">单价</th>
+				<th data-options="field:'total',width:100,align:'right',formatter:totalformatter">总价</th>
+				<th data-options="field:'mark',width:100,align:'center'">备注</th>
+		</thead>
+	</table>
+	</div>
+</div>
+
+
 </body>
 </html>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
-
 	function InitPage(p)
 	{
 		$('#bill').datagrid({onClickRow:onRowClick,rownumbers:true});
 	var pager = $('#bill').datagrid('getPager');
 	pager.pagination({showRefresh:false,pageList:[15,20,30]});
-		var idx = p.indexOf('=');
-		var id = p.substring(idx+1);
+
+		var type = getUrlParam('type');//main 表示主单
+		var id = getUrlParam('id');//空表示为新建订单
+		if(type === null)
+		{
+				$.messager.alert('温馨提示','无效操作类型','error');
+				return;
+		}
+
 		var rcp = "cmd=querybills";
 		rcp += '&invoke=showBillDetail';
 
-		if(p.charAt(1) === '&')//主单
+		if(type === 'main')//主单
 			rcp += '&main=true';
-	//alert(p);
-		PostData(id,rcp);
-		//alert("page");
 
-		
+		PostData(id,rcp);	
 	}
 	function debtdetail()
 	{
 		$('#debtdetail').css('display','block');
 		$('#billdetail').css('display','none');
+		$('#modifyBillInfo').css('display','none');
 		$('#bill').datagrid('unselectAll');
 		PostData('','cmd=billdetail&seqnbr=#' + g_mainseq);
 	}
 	function onRowClick(idx)
 	{
 		$('#debtdetail').css('display','none');
+		$('#modifyBillInfo').css('display','none');
 		$('#billdetail').css('display','block');
 		var r =  $('#bill').datagrid('getSelected');
+		
 		//alert(r.purunit);
 		$('#detail td[name=purunit]').text(r.purunit);
 		$('#detail td[name=date]').text(r.date);
@@ -149,12 +187,17 @@
 	}
 	function priceformatter(v,r)
 	{
+		var price = '0.00';
 		if(r.saleprice != null)
 		{
-			var price = parseFloat(r.saleprice);
-		return  price.toFixed(2);
+			 price = parseFloat(r.saleprice);
 		}
-		return '0.00';
+		if(r.amount != null)
+		{
+			price = parseFloat(r.amount);
+		}
+
+		return   price.toFixed(2);
 	}
 	var g_mainseq = '';
 	function showBillDetail(billinfo,defid)
@@ -210,6 +253,11 @@ function print()
 			$.messager.alert('温馨提示','暂不支持账务明细打印','info');
 			return;
 		}
+		if($('#modifyBillInfo').css('display') === 'block')
+		{
+			$.messager.alert('温馨提示','请先退出修改模式','info');
+			return;
+		}
 		var p ='pagecode=' + $('#detail td[name=pagecode]').text();
 		p += '&mobile=' +	$('#detail td[name=mobile]').text();
 		p += '&purunit=' + $('#detail td[name=purunit]').text();
@@ -247,7 +295,26 @@ function print()
 
 function payback()
 {
-	PostData('','cmd=payback&id='+g_mainseq);
+	PostData('','cmd=payback&mainseqnbr='+g_mainseq);
 }
+
+function modifyBill()
+{
+	var r =  $('#bill').datagrid('getSelected');
+	if(r === null)
+	{
+		$.messager.alert('温馨提示','请先选择账单','warning');
+		return;
+	}
+	/*$('#debtdetail').css('display','none');
+	$('#billdetail').css('display','none');
+	$('#modifyBillInfo').css('display','block');
+	
+	$('#modifyBillList').datagrid('loadData',{rows:[],toal:0});*/
+	var initParam = 'type=modify&seqnbr='+r.seqnbr+'&id='+r.id;
+	PostData(initParam,'cmd=popup&file=bill.html&width=1200&height=660');
+}
+
+
 //-->
 </SCRIPT>

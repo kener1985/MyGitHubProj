@@ -705,6 +705,7 @@ namespace UtilHelper.Database
         public void ExcuteNonQuery(string SqlString)
         {
             DbCommand cmd = NewCommand(SqlString, m_con);
+            AddParametersTo(cmd, true);
             cmd.ExecuteNonQuery();
         }
         /// <summary>
@@ -715,11 +716,15 @@ namespace UtilHelper.Database
         /// <returns></returns>
         public abstract DataTable MultiTableSelect(string sqlSelect, bool AddTableName);
         private DbTransaction m_Trx = null;
+
+        /**
+         * 开始事务，若事务已打开则返回false，否则返回true，打开失败抛异常
+         **/
         public bool BeginBatch()
         {
             //存在事务，直接返回
             if (m_Trx != null)
-                return true;
+                return false;
             try
             {
                 m_Trx = m_con.BeginTransaction();
@@ -727,7 +732,7 @@ namespace UtilHelper.Database
             catch (System.Exception ex)
             {
                 _Log.LogError(ex.Message, "BeginBatch");
-                return false;
+                throw ex;
             }
             return true;
         }

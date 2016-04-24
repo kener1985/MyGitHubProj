@@ -219,9 +219,9 @@ namespace BaseLib
             EasyUITable etb = new EasyUITable();
             DataTable tbl = new DataTable("products");
 
-            GlobalVar.DBHelper.AddSelectWithLimit("products", sd["fields"], "innerid=@innerid AND status!='1'");
+            GlobalVar.DBHelper.AddSelectWithLimit("products", sd["fields"], "productid=@productid AND status!='1'");
 
-            GlobalVar.DBHelper.AddCustomParam("@innerid", sd["data"]);
+            GlobalVar.DBHelper.AddCustomParam("@productid", sd["data"]);
 
             GlobalVar.DBHelper.Fill(ref tbl);
             etb.Table = tbl;
@@ -243,6 +243,26 @@ namespace BaseLib
 
         public void DoAction(StrDictionary sd)
         {
+
+            GlobalVar.DBHelper.BeginBatch();
+            string oriPid = null;//原pid
+            //修改订单,先将之前的信息冲掉
+            if (sd["oprtype"].Equals("modify"))
+            {
+                //保存原id
+                if (sd["pid"].Equals("0"))
+                {
+                    GlobalVar.DBHelper.AddCustomParam("@seqnbr", sd["seqnbr"]);
+                    oriPid = Convert.ToString(GlobalVar.DBHelper.ExcuteForUnique("select id from bills where seqnbr=@seqnbr", true));
+                }
+                if (!restoreBalance(sd))
+                {
+                    MessageBox.Show("修改订单失败");
+                    GlobalVar.DBHelper.EndBatch(true);//异常强制回滚
+                    return;
+                }
+            }
+
             GlobalVar.DBHelper.AddInsert("billitem", "productid,num,type,saleoff,mark,seqnbr,saleprice,c_num");
             GlobalVar.DBHelper.AddInsert("bills", "seqnbr,payer,purunit,mobile,pid,operator,pagecode,type");
 
@@ -251,6 +271,7 @@ namespace BaseLib
             EasyUITable etb = new EasyUITable();
             etb.Parse(sd["data"]);
             DateTime dtNow = DateTime.Now;
+            string billseq = dtNow.Ticks.ToString();
 
             etb.Table.Columns.Add("seqnbr");
             foreach (DataRow r in etb.Table.Rows)
@@ -284,39 +305,53 @@ namespace BaseLib
             GlobalVar.DBHelper.Fill(ref tbProd);
 
             //storehistory表
-            GlobalVar.DBHelper.AddInsert("storenumhistory", "mark,num,seqnbr,type,productid,finalstore,opr,customer");
+            GlobalVar.DBHelper.AddInsert("storenumhistory", "mark,num,billseqnbr,type,productid,finalstore,opr,customer");
             DataTable tblHis = new DataTable();
-            tblHis.Init("storenumhistory", "mark,num,seqnbr,type,productid,finalstore,opr,customer");
+            tblHis.Init("storenumhistory", "mark,num,billseqnbr,type,productid,finalstore,opr,customer");
 
             //账务明细表
-            GlobalVar.DBHelper.AddInsert("debtdetail", "billseq,opr,mark,seqnbr,amount,type");
+            GlobalVar.DBHelper.AddInsert("debtdetail", "main_seqnbr,billseq,opr,mark,seqnbr,amount,type");
             DataTable tblDebt = new DataTable();
-            tblDebt.Init("debtdetail", "billseq,seqnbr,opr,mark,date,amount,type");
+            tblDebt.Init("debtdetail", "main_seqnbr,billseq,seqnbr,opr,mark,date,amount,type");
             DataRow debtrow = tblDebt.NewRow();
             debtrow.SetField<string>("opr", GlobalVar.LogInfo.WorkCode);
             debtrow.SetField<long>("seqnbr", dtNow.Ticks);
             debtrow.SetField<string>("amount", sd["amount"]);
             debtrow.SetField<string>("type", sd["type"]);
-
+            debtrow.SetField<string>("main_seqnbr", billseq);
+            debtrow.SetField<string>("billseq", billseq);
+            
             if (sd["pid"] != "0")
             {
-                string seq = GlobalVar.DBHelper.ExcuteForUnique<string>("select seqnbr from bills where id=" + sd["pid"]);
-                debtrow.SetField<string>("billseq", seq);
+                string mainSeqnbr = GlobalVar.DBHelper.ExcuteForUnique<string>("select seqnbr from bills where id=" + sd["pid"]);
+                debtrow.SetField<string>("main_seqnbr", mainSeqnbr);
             }
-            else
-            {
-                debtrow.SetField<long>("billseq", dtNow.Ticks);
-            }
+            
+            
             tblDebt.Rows.Add(debtrow);
             //平衡货品数量
-            Balance(etb.Table, tbProd, tblHis, sd);
+            Balance(etb.Table, tbProd, tblHis, sd, billseq);
             DataSet ds = new DataSet();
             ds.Tables.AddRange(new DataTable[] { etb.Table, tbProd, tbBill, tblHis, tblDebt });
-            GlobalVar.DBHelper.BeginBatch();
+            
 
             //新增账单数据 更新货品数据
             int ret = GlobalVar.DBHelper.Update(ds, "billitem,products,bills,storenumhistory,debtdetail");
             //int ret = GlobalVar.DBHelper.Update(ds, "billitem,bills,debtdetail");
+
+            //若更新主单，需同时更新关联的子单
+            if (oriPid != null)
+            {
+                GlobalVar.DBHelper.AddCustomParam("@seqnbr",billseq);
+                string newPid = Convert.ToString(GlobalVar.DBHelper.ExcuteForUnique("select id from bills where seqnbr=@seqnbr",true));
+                GlobalVar.DBHelper.AddCustomParam("@newPid", newPid);
+                GlobalVar.DBHelper.AddCustomParam("@oldPid",oriPid);
+                GlobalVar.DBHelper.ExcuteNonQuery("update bills set pid=@newPid where pid=@oldPid");
+
+                GlobalVar.DBHelper.AddCustomParam("@newSeqnbr", dtNow.Ticks);
+                GlobalVar.DBHelper.AddCustomParam("@oldSeqnbr", sd["seqnbr"]);
+                GlobalVar.DBHelper.ExcuteNonQuery("update debtdetail set main_seqnbr=@newSeqnbr where main_seqnbr=@oldSeqnbr");
+            }
             bool noErr = Utility.ProcessSqlError(ds);
             GlobalVar.DBHelper.EndBatch(noErr == false);
             //账单录入版暂不进行打印
@@ -324,7 +359,7 @@ namespace BaseLib
             //    BillPrinter.Print(etb.Table, sd);
             GlobalVar.Container.InvokeScript("resultCallback", new object[] { noErr });
         }
-        private void Balance(DataTable tbBill, DataTable tbProd, DataTable tblHis, StrDictionary sd)
+        private void Balance(DataTable tbBill, DataTable tbProd, DataTable tblHis, StrDictionary sd, string billseq)
         {
             foreach (DataRow r in tbBill.Rows)
             {
@@ -345,7 +380,7 @@ namespace BaseLib
                 nr.SetField<string>("customer", sd["purunit"]);//#表示系统未对库存进行修改
                 nr.SetField<string>("mark", r.Field<string>("mark"));
                 nr.SetField<string>("num", r.Field<string>("num"));
-                nr.SetField<long>("seqnbr", DateTime.Now.Ticks);
+                nr.SetField<long>("billseqnbr", Convert.ToInt64(billseq));
                 nr.SetField<string>("type", r.Field<string>("type"));
                 nr.SetField<string>("productid", r.Field<string>("productid"));
                 nr.SetField<int>("finalstore", result);
@@ -377,7 +412,45 @@ namespace BaseLib
             sz.Append(')');
             return sz.ToString();
         }
+        private bool restoreBalance(StrDictionary sd)
+        {
+            //原订单编码
+            string billseq = sd["seqnbr"];
+            try
+            {
+                GlobalVar.DBHelper.AddCustomParam("@seqnbr", billseq);
+                //加载原账单项
+                GlobalVar.DBHelper.AddSelectWithLimit("billitem", "productid,type,num", "seqnbr=@seqnbr");
+                DataTable items = new DataTable("billitem");
+                GlobalVar.DBHelper.Fill(ref items);
 
+                //还原产品数量
+                foreach(DataRow r in items.Rows)
+                {
+                    long productid = r.Field<long>("productid");
+                    string type = r.Field<string>("type");
+                    int num = r.Field<Int32>("num");
+                    string opr = type.Equals("O") ? "+" : "-";//原先为出货，恢复后数量增加
+                    GlobalVar.DBHelper.ExcuteNonQuery("update products set storenum=storenum" + opr + num + " where id=" + productid);
+                }
+                
+                GlobalVar.DBHelper.AddCustomParam("@seqnbr",billseq);
+                //删除原订单
+                GlobalVar.DBHelper.ExcuteForUnique("delete from bills where seqnbr=@seqnbr",false);
+                //删除原订单项
+                GlobalVar.DBHelper.ExcuteForUnique("delete from billitem where seqnbr=@seqnbr", false);
+                //删除原账务信息
+                GlobalVar.DBHelper.ExcuteForUnique("delete from debtdetail where billseq=@seqnbr", false);
+                //删除原出货历史
+                GlobalVar.DBHelper.ExcuteForUnique("delete from storenumhistory where billseqnbr=@seqnbr", true);
+            }
+            catch (Exception e)
+            {
+                GlobalVar.Log.LogError("还原订单信息异常:"+e.Message);
+                return false;
+            }
+            return true;
+        }
         public bool IsMe(string schema)
         {
             return schema.Equals("balancebill");
@@ -416,14 +489,13 @@ namespace BaseLib
         public void DoAction(StrDictionary sd)
         {
             EasyUITable etb = new EasyUITable();
-            string seqnbr = sd["seqnbr"];
+            string mainSeqnbr = sd["seqnbr"];
             string ivk = String.Empty;
-            if (seqnbr[0] == '#')//查账务统计表
+            if (mainSeqnbr[0] == '#')//查账务统计表
             {
-
-                seqnbr = seqnbr.Substring(1);
-                GlobalVar.DBHelper.AddSelectWithLimit("debtdetail", "amount,seqnbr,mark,opr,type", "billseq=@seq");
-                GlobalVar.DBHelper.AddCustomParam("@seq", seqnbr);
+                mainSeqnbr = mainSeqnbr.Substring(1);
+                GlobalVar.DBHelper.AddSelectWithLimit("debtdetail", "amount,seqnbr,mark,opr,type", "main_seqnbr=@seq");
+                GlobalVar.DBHelper.AddCustomParam("@seq", mainSeqnbr);
                 DataTable tbl = new DataTable("debtdetail");
                 GlobalVar.DBHelper.Fill(ref tbl);
                 GlobalVar.AddDateFildFromSeqnbr(tbl, true);
@@ -585,7 +657,7 @@ namespace BaseLib
 
         #endregion
     }
-    public class QueryInneridAction : IAction
+    public class QueryProductIdAction : IAction
     {
 
         #region IAction 成员
@@ -595,17 +667,17 @@ namespace BaseLib
             EasyUITable etb = new EasyUITable();
             DataTable tbl = new DataTable("products");
             string keyword = sd["data"].Trim();
-            GlobalVar.DBHelper.AddSelectWithLimit("products", "innerid", "innerid LIKE @keyword AND status!='1' GROUP BY innerid");
+            GlobalVar.DBHelper.AddSelectWithLimit("products", "productid", "productid LIKE @keyword AND status!='1' GROUP BY productid");
             GlobalVar.DBHelper.AddCustomParam("@keyword", "%" + keyword + "%");
             GlobalVar.DBHelper.Fill(ref tbl);
             etb.Table = tbl;
 
-            GlobalVar.Container.InvokeScript("inneridAutoComplete", new object[] { etb.ToJson() });
+            GlobalVar.Container.InvokeScript(sd["invoke"], new object[] { etb.ToJson() });
         }
 
         public bool IsMe(string schema)
         {
-            return schema.Equals("queryinnenid");
+            return schema.Equals("queryproductid");
 
         }
 
@@ -619,7 +691,7 @@ namespace BaseLib
         public void DoAction(StrDictionary sd)
         {
             int num = Convert.ToInt32(sd["num"]);
-            string fields = "mark,num,seqnbr,type,productid,finalstore,opr,customer";
+            string fields = "mark,num,billseqnbr,type,productid,finalstore,opr,customer";
             GlobalVar.DBHelper.AddInsert("storenumhistory", fields);
             GlobalVar.DBHelper.AddUpdate("products", "id,storenum", "id");
             DefaultAction.StoreChangeFrm frm = new DefaultAction.StoreChangeFrm(num);
@@ -656,7 +728,7 @@ namespace BaseLib
                 else
                     r.SetField<decimal>("num", frm.Value);
 
-                r.SetField<long>("seqnbr", DateTime.Now.Ticks);
+                //r.SetField<long>("billseqnbr", DateTime.Now.Ticks);
                 r.SetField<char>("type", frm.OprType);
                 r.SetField<string>("productid", sd["data"]);
                 r.SetField<string>("opr", GlobalVar.LogInfo.WorkCode);
@@ -854,27 +926,6 @@ namespace BaseLib
         #endregion
     }
 
-    public class ModifyBillInfoAction : IAction
-    {
-        #region IAction 成员
-        public void DoAction(StrDictionary sd)
-        {
-            string bid = sd["billid"];
-            ModifyBillInfoFrm modifyFrm = new ModifyBillInfoFrm(bid);
-            DialogResult result =  modifyFrm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                GlobalVar.Container.InvokeScript("query",null);
-            }
-        }
-        public bool IsMe(string schema)
-        {
-            return schema.Equals("modifybill");
-
-        }
-        #endregion
-
-    }
     public class UpdateUserInfoAction : IAction
     {
 
@@ -944,7 +995,7 @@ namespace BaseLib
         public void DoAction(StrDictionary sd)
         {
 
-            PaybackFrm frm = new PaybackFrm(sd["id"]);
+            PaybackFrm frm = new PaybackFrm(sd["mainseqnbr"]);
             frm.ShowDialog();
         }
 
@@ -998,7 +1049,7 @@ namespace BaseLib
             string mark = sd["mark"].Trim();
 
             bool hasCon = false;
-            string sql = "SELECT p.id as pid,p.name,p.colornum,p.innerid,p.productid,s.id,s.mark,s.seqnbr,s.type,s.num,s.finalstore,s.opr,s.customer " +
+            string sql = "SELECT p.id as pid,p.name,p.colornum,p.innerid,p.productid,s.id,s.mark,s.type,s.num,s.finalstore,s.opr,s.customer " +
                "FROM products as p,storenumhistory as s WHERE p.id=s.productid";
             if (String.IsNullOrEmpty(cus) == false)
             {
@@ -1018,7 +1069,7 @@ namespace BaseLib
                 return;
             }
             string lmt = sb.ToString();
-            lmt += @" ORDER BY s.seqnbr DESC";           
+            lmt += @" ORDER BY s.id DESC";           
             DataTable tbl = GlobalVar.DBHelper.MultiTableSelect(sql + lmt, true);
 
             GlobalVar.transferCodeToName(tbl, "opr");
@@ -1068,6 +1119,32 @@ namespace BaseLib
 
         #endregion
     }
+
+    public class QueryBillItemsAction : IAction
+    {
+
+        #region IAction 成员
+
+        public void DoAction(StrDictionary sd)
+        {
+            AbstractDbHelper helper  = GlobalVar.DBHelper;
+            helper.AddCustomParam("@seqnbr",sd["seqnbr"]);
+            DataTable tbl = helper.MultiTableSelect("select bi.seqnbr,bi.num,bi.c_num,bi.type,bi.saleoff,bi.saleprice,bi.mark,p.id,p.colornum,p.innerid,p.productid,p.size " +
+            "from billitem bi,products p where bi.seqnbr=@seqnbr and p.id=bi.productid", true);
+
+            EasyUITable etb = new EasyUITable();
+            etb.Table = tbl;
+            GlobalVar.Container.InvokeScript(sd["invoke"], new Object []{ etb.ToJson()});
+        }
+
+        public bool IsMe(string schema)
+        {
+            return schema.Equals("queryBillItems");
+        }
+
+        #endregion
+    }
+
     public class TestAction : IAction
     {
 
@@ -1075,12 +1152,41 @@ namespace BaseLib
 
         public void DoAction(StrDictionary sd)
         {
+            GlobalVar.DBHelper.AddDelete("products", "id");
+            GlobalVar.DBHelper.AddInsert("members", "name");
 
-            string num = "hello1";
-            int i = 10;
-            bool isInt = Int32.TryParse(num, out i);
+            DataSet ds = new DataSet();
+            DataTable delTbl = new DataTable("products");
+            DataTable addTbl = new DataTable("members");
+            delTbl.Init("products", "id");
+            addTbl.Init("members","name");
+
+            DataRow dr = delTbl.NewRow();
+            dr.SetField<Int64>("id",32);
+            delTbl.Rows.Add(dr);
+            delTbl.AcceptChanges();
+            dr.Delete();
             
-            MessageBox.Show(i.ToString());
+            DataRow dr1 = addTbl.NewRow();
+            dr1.SetField<string>("name", "测试");
+            addTbl.Rows.Add(dr1);
+            
+            ds.Tables.Add(delTbl);
+            ds.Tables.Add(addTbl);
+
+            GlobalVar.DBHelper.BeginBatch();
+            try
+            {
+                GlobalVar.DBHelper.Update(ds, "members,products");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            GlobalVar.DBHelper.EndBatch();
+
+
+           
         }
 
         public bool IsMe(string schema)

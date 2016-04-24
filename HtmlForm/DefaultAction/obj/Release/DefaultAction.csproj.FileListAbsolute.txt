@@ -51,4 +51,3 @@ D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.Wi
 D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.csproj.GenerateResource.Cache
 D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.dll
 D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.pdb
-D:\MyGithubProj\MyGitHubProj\HtmlForm\DefaultAction\obj\Release\DefaultAction.ModifyBillInfoFrm.resources

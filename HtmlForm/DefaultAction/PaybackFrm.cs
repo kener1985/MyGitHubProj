@@ -12,10 +12,10 @@ namespace DefaultAction
 {
     public partial class PaybackFrm : Form
     {
-        private readonly string _id;
-        public PaybackFrm(string id)
+        private readonly string _mainseqnbr;
+        public PaybackFrm(string seqnbr)
         {
-            _id = id;
+            _mainseqnbr = seqnbr;
             InitializeComponent();
         }
 
@@ -32,14 +32,15 @@ namespace DefaultAction
                 return;
             }
             //MessageBox.Show(_id);
-            GlobalVar.DBHelper.AddInsert("debtdetail", "billseq,opr,type,amount,mark,seqnbr");
+            GlobalVar.DBHelper.AddInsert("debtdetail", "main_seqnbr,billseq,opr,type,amount,mark,seqnbr");
             DataTable tbl = new DataTable();
-            tbl.Init("debtdetail", "billseq,opr,type,amount,mark,seqnbr");
+            tbl.Init("debtdetail", "main_seqnbr,billseq,opr,type,amount,mark,seqnbr");
             DataRow r = tbl.NewRow();
             r.SetField<long>("seqnbr", DateTime.Now.Ticks);
             r.SetField<string>("opr", GlobalVar.LogInfo.WorkCode);
             r.SetField<string>("type", "B");//还款
-            r.SetField<string>("billseq", _id);
+            r.SetField<string>("billseq", "");
+            r.SetField<string>("main_seqnbr", _mainseqnbr);
             r.SetField<string>("mark", tbMark.Text.Trim());
             r.SetField<string>("amount", nudAmt.Value.ToString());
             tbl.Rows.Add(r);

@@ -28,16 +28,15 @@
 
 	<!-- 工具栏 -->
 		<div id="tb" style="height:auto">
-		<a href="receipt://default/popup?file=bill.html&width=1020&height=600" class="easyui-linkbutton" style="float:right" data-options="iconCls:'icon-edit',plain:true">新客户开单</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" style="float:right" data-options="iconCls:'icon-save',plain:true" onclick="addBill()">加单</a>	
 		<!--<a href="javascript:void(0)" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true" onclick="query()">查询</a>-->
-		日期：<input id="begdat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:false"/>&nbsp;至&nbsp;
-		<input id="enddat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:false"/>
+		日期：<input id="begdat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:true"/>&nbsp;至&nbsp;
+		<input id="enddat" type="text" class="easyui-datebox" style="width:100px" data-options="required:false,editable:true"/>
 		收货人：<INPUT TYPE="text" id="purunit" style="width:100px;margin:0;padding:0;">
 		制单人：<input id="operator" class="easyui-combobox"  data-options="width:150,editable:false,panelHeight:120,required:false,multiple:false,valueField:'code',textField:'name'" /> 
 		<INPUT TYPE="checkbox" NAME="mainonly" checked>只显示主单
 		<a href="javascript:query();" class="easyui-linkbutton"  data-options="iconCls:'icon-search',plain:true">查询</a>
-		<a href="javascript:modify();" class="easyui-linkbutton"  data-options="iconCls:'icon-edit',plain:true">修改</a>
+		<a href="receipt://default/popup?file=bill.html&width=1020&height=600" class="easyui-linkbutton" style="" data-options="iconCls:'icon-edit',plain:true">新客户开单</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="" data-options="iconCls:'icon-save',plain:true" onclick="addBill()">加单</a>	
 	</div>	
 </body>
 </html>
@@ -90,20 +89,6 @@ function query()
 	PostData('',p);
 }
 
-function modify()
-{
-	var row = $('#dg').datagrid('getSelected');
-	if(row == null)
-	{
-		$.messager.alert('温馨提示','请选择要修改的记录！','warning');
-		return;
-	}
-	
-		var p = 'billid='+row.id;
-	p += '&cmd=modifybill';
-	
-	PostData('',p);
-}
 function queryCallback(obj)
 {
 	if(obj == null || typeof obj == undefined ||  obj.trim() === '')
@@ -131,9 +116,11 @@ function queryCallback(obj)
 		var initStr = '';
 		
 		if(r.pid === 0)//表示主单
-			initStr = '&';
+			initStr = 'type=main';
+		else 
+		    initStr = 'type=sub';
 
-		initStr += 'id='+r.id;
+		initStr += '&id='+r.id;
 		PostData(initStr,'cmd=popup&file=billDetail.html&width=1200&height=660');
 	}
 	function addBill()
@@ -150,7 +137,7 @@ function queryCallback(obj)
 			$.messager.alert('温馨提示','选中记录不是主单!','error');
 			return;
 		}
-		PostData(row.id,'cmd=popup&file=bill.html&width=1080&height=600');	
+		PostData('id='+row.id+'&type=append','cmd=popup&file=bill.html&width=1080&height=600');	
 	}
 //-->
 </SCRIPT>

@@ -51,7 +51,7 @@
 		<a href="javascript:void(0)" id="mb" class="easyui-menubutton"    style="float:right"  
         data-options="menu:'#mbmm',iconCls:'icon-edit'">库存管理</a>  
 <div id="mbmm" style="width:150px;">  
-    <div data-options="iconCls:'icon-edit'" onclick="storeMgr(1);">修改库存</div>  
+    <div data-options="iconCls:'icon-edit'" onclick="storeMgr(1);" role="mgr">修改库存</div>  
     <div data-options="iconCls:'icon-search'" onclick="storeMgr(2);">产品库存历史</div>  
 </div>  
 
@@ -59,7 +59,7 @@
 		<input id="search" class="easyui-searchbox" data-options="prompt:'请输入关键字',menu:'#smm',searcher:query,width:220"></input>
 	<div id="smm" style="width:120px">
 		<div data-options="name:'all',iconCls:'icon-ok'">所有货品</div>
-		<div role="mgr" data-options="name:'productid',iconCls:'icon-ok'">实际编号</div>
+		<div data-options="name:'productid',iconCls:'icon-ok'">实际编号</div>
 		<div data-options="name:'innerid',iconCls:'icon-ok'">编号</div>
 		<div data-options="name:'storelessthan',iconCls:'icon-ok'">库存小于</div>
 		<!--<div role="mgr" data-options="name:'opr',iconCls:'icon-ok'">操作员为</div>-->
@@ -98,6 +98,7 @@ $(function()
 			$('#dg').datagrid('hideColumn','cost');
 			$('#btnER').css('display','none');
 			$('#smm div[role=mgr]').css('display','none');
+			$('#mbmm div[role=mgr]').css('display','none');
 		}
 	}
 

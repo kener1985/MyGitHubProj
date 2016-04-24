@@ -168,6 +168,9 @@ namespace HtmlForm
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            string temppath = GlobalVar.AppPath + "temp";
+            if(Directory.Exists(temppath))
+                Directory.Delete(temppath, true);
             this.LogFrm.Close();
         }
 
