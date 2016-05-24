@@ -20,19 +20,22 @@
 <a href="javascript:payback();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">还款</a>
 <a href="javascript:debtdetail();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">统计</a>
 <a href="javascript:modifyBill()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">修改</a>
+<a href="javascript:deleteBill()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">删除</a>
+
 <!--<a href="javascript:test()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">test</a>-->
 <div >
 <table id="bill" class="easyui-datagrid" title="账单列表"  style="width:300px;height:560px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" alt="双击查看明细">
 		<thead>
 			<tr>
 				<th data-options="field:'id',hidden:true">id</th>
+				<th data-options="field:'pid',hidden:true">pid</th>
 				<th data-options="field:'seqnbr',hidden:true">seqnbr</th>
 				<th data-options="field:'date',width:100,align:'center'">日期</th>
 				<th data-options="field:'type',width:60,align:'center',formatter:typeformatter">类型</th>
 		</thead>
 	</table>
 	</div>
-	<div style="position:absolute;top:43px;left:313px;" id="billdetail">
+	<div style="position:absolute;top:43px;left:313px;display:none;" id="billdetail">
 	<div id="detail" class="easyui-panel" title="账单明细"    
         style="width:850px;height:560px;padding:10px;background:#fafafa;"  
         data-options="closable:false,   
@@ -108,12 +111,13 @@
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
-	function InitPage(p)
+	function InitPage()
 	{
+		$('#billdetail').css('display','none');
 		$('#bill').datagrid({onClickRow:onRowClick,rownumbers:true});
 	var pager = $('#bill').datagrid('getPager');
 	pager.pagination({showRefresh:false,pageList:[15,20,30]});
-
+		//alert(location.href);
 		var type = getUrlParam('type');//main 表示主单
 		var id = getUrlParam('id');//空表示为新建订单
 		if(type === null)
@@ -127,7 +131,7 @@
 
 		if(type === 'main')//主单
 			rcp += '&main=true';
-
+		
 		PostData(id,rcp);	
 	}
 	function debtdetail()
@@ -283,13 +287,13 @@ function print()
 			obj.size = (r.size == null ? '':r.size);
 			obj.c_num = r.c_num;
 			obj.saleprice = r.saleprice;
-			obj.total = t;
+			obj.total = t.toFixed(2);
 			total += t;
 			obj.mark = (r.mark == null ? '' : r.mark);
 			arr.push(obj);
 		})
-		p+= '&totalamt=' + total.toFixed(2) + '元    （大写:' + ToUpperCase(total.toFixed(2)) + '）';
-		//alert(p);
+		p+= '&totalamt=' + total.toFixed(2);// + '元    （大写:' + ToUpperCase(total.toFixed(2)) + '）';
+		
 		PostData(ToEasyUIJson("sh,saleprice,total,mark,size,prodnbr,c_num",arr),p);
 }
 
@@ -311,10 +315,41 @@ function modifyBill()
 	$('#modifyBillInfo').css('display','block');
 	
 	$('#modifyBillList').datagrid('loadData',{rows:[],toal:0});*/
-	var initParam = 'type=modify&seqnbr='+r.seqnbr+'&id='+r.id;
+	var initParam = 'oprtype=modify&seqnbr='+r.seqnbr+'&id='+r.id;
 	PostData(initParam,'cmd=popup&file=bill.html&width=1200&height=660');
 }
 
+function deleteBill()
+{
+	var r =  $('#bill').datagrid('getSelected');
+	if(r === null)
+	{
+		$.messager.alert('温馨提示','请先选择账单','warning');
+		return;
+	}
+	var count =  $('#bill').datagrid('getRows').length;
+	if(r.pid === 0 && count > 1)
+	{
+		$.messager.alert('温馨提示','请先删除副单','warning');
+		return;
+	}
 
+	$.messager.confirm('温馨提示', '您确定要提交吗?', function(go){
+	if(go == false) return;
+		PostData('','oprtype=delete&cmd=balancebill&invoke=deleteReturn&seqnbr='+r.seqnbr);
+	});
+
+}
+
+	function deleteReturn(result)
+	{
+		if(result === true)
+		{
+			$.messager.alert('温馨提示','删除成功','info');
+			InitPage();
+		}
+		else
+				$.messager.alert('温馨提示','删除失败','error');
+	}
 //-->
 </SCRIPT>

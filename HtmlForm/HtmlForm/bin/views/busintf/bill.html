@@ -143,9 +143,9 @@
 		</table>
 
 		<div style="margin-top:20px">
-		<label style="margin:0 150px 0 10px">制单人：<label name="operator"></label></label>
-		<label style="margin-right:150px">签收人：<input type="text" name="payer" style="width:200px"></label>
-		电话： <input type="text" name="mobile"  style="width:200px" ></div>
+		<label style="margin:0 350px 0 10px">制单人：<input id="opr" class="easyui-combobox"  data-options="width:100,valueField:'code',textField:'name',panelHeight:100,required:true,multiple:false" /></label>
+		<label style="margin-right:20px">签收人：<input type="text" name="payer" style="width:120px"></label>
+		电话： <input type="text" name="mobile"  style="width:120px" ></div>
 		</div>
 		
 </div>
@@ -179,19 +179,19 @@
 	    <!--
 
 function InitPage(p) { //alert(window.location.search);
-	var type = getUrlParam('type');
+	var type = getUrlParam('oprtype');
 	var id = getUrlParam('id');
 	if (type === 'append') //追加订单
 	{
 		//alert('append'+id);
-		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id);
+		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id+'&type=append');
 		PostData('', 'cmd=select&table=bills&fields=id,operator,payer,mobile,purunit,pagecode&invoke=returnJson&limit=id%3d' + id);
 	} else if (type === 'modify') //修改订单
 	{
 		var seqnbr = getUrlParam('seqnbr');
 		$('#oprtype').val('modify');
 		$('#seqnbr').val(seqnbr);
-		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id);
+		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id+'&type=modify');
 		PostData('', 'cmd=select&table=bills&fields=id,pid,operator,payer,mobile,purunit,pagecode&invoke=returnJson&limit=id%3d' + id);
 		PostData('', 'cmd=queryBillItems&invoke=initItemsForModify&seqnbr=' + seqnbr);
 	} else //新建订单
@@ -230,7 +230,7 @@ function initItemsForModify(json)
 	var items = $.parseJSON(json);
 	if(items.total === 0)
 	{
-		$.messager.alert('提示','订单异常!','error');
+		$.messager.alert('提示','订单异常：如该订单个修改过，请先退出到主界面重新查询!','error');
 		return;
 	}
 	var tbd = $('#bill tbody');
@@ -244,11 +244,11 @@ function initItemsForModify(json)
 				'<td name="total" type="money">'+item.saleprice*item.num+'</td>'+
 				'<td name="position">'+ 1 + '</td>'+
 				'<td name="mark">'+item.mark+
-				//以下要改
+
 				'<td ignore=true noprint=true><a href="javascript:deleteItem(' + item.id+');">删除</a></td>'+
-				'<td name="productid" noprint=true style="display:none">'+item.productid +'</td>' +
+				'<td name="productid" noprint=true style="display:none">'+item.id +'</td>' +
 				'<td name="type" noprint=true style="display:none">'+item.type +'</td>' +
-				/*'<td name="saleoff" noprint=true style="display:none">'+$('#saleoff').combobox('getValue') + 	'</td>*/'</tr>';
+				'<td name="saleoff" noprint=true style="display:none">'+item.saleoff + 	'</td></tr>';
 				tbd.append(item);
 	});
 }
@@ -273,6 +273,7 @@ function initItemsForModify(json)
 				else
 					$('#pricehis').css('display','none');
 			}
+
 			function unitloaded()
 			{
 				//alert('loaded');
@@ -289,16 +290,25 @@ function initItemsForModify(json)
 
 				return row.unit + '/' + row.punit;
 			}
-			function setBillnfo(name,date,pc,pricehis)
+			function setBillnfo(members,oprcode,date,pc,pricehis)
 			{
+//						PostData('', 'cmd=querymebers&invoke=initMembers&id=' + id);
+
+			    var membersObj = $.parseJSON(members);
 				$('label[name=date]').text(date);
-				$('label[name=operator]').text(name);
+				//$('label[name=operator]').text(name);
+				$('#opr').combobox("loadData",membersObj.rows);
 				$('label[name=pagecode]').text(pc);
+				//初始化制单人
+				if(oprcode != null && oprcode!=='' && typeof oprcode!== 'undefined')
+				{
+					$('#opr').combobox("setValue",oprcode);
+				}
 				//alert(pricehis);
 				if(pricehis === '')return;
 
-				var obj = $.parseJSON(pricehis);
-				$.each(obj.rows,function(n,r)
+				var hispricesObj = $.parseJSON(pricehis);
+				$.each(hispricesObj.rows,function(n,r)
 				{
 					var s = r.productid;
 					var item = '';
@@ -310,7 +320,7 @@ function initItemsForModify(json)
 					if(r.colornum != null && r.colornum != undefined && r.colornum != '')
 						item += ',' + r.colornum + '色';
 					item += '：' + r.saleprice + '元'; 
-					
+
 					$('#pricehis ul').append('<li name="' +s+'" style="display:none">' + item + '</li>');
 				}
 				);
@@ -388,7 +398,7 @@ function initItemsForModify(json)
 				//判断货品是否已添加
 				if(tbd.find('tr[itemid=' +item.id+']').length > 0)
 				{
-					$.messager.alert('记录重复','编号' + item.innerid + '色号' + item.colornum + '记录已存在!','error');
+					$.messager.alert('记录重复','编号' + item.productid + '色号' + item.colornum + '记录已存在!','error');
 					return;
 				}
 				//价格
@@ -444,7 +454,7 @@ function initItemsForModify(json)
 				var pos = $('#pos').text();
 				var size = $('#size').text();
 				var mark = $('#mark').val();
-					
+
 				var billitem ='<tr itemid="' + item.id +'"><td name="prodnbr">'+ pronbr + '</td>' +
 				'<td name="size">'+size+'</td>'+
 				'<td name="sh">'+cn+'</td>' +
@@ -456,7 +466,7 @@ function initItemsForModify(json)
 				'<td ignore=true noprint=true><a href="javascript:deleteItem(' + item.id+');">删除</a></td>'+
 				'<td name="productid" noprint=true style="display:none">'+item.id +'</td>' +
 				'<td name="type" noprint=true style="display:none">'+type +'</td>' +
-				'<td name="saleoff" noprint=true style="display:none">'+$('#saleoff').combobox('getValue') + 	'</td></tr>';
+				'<td name="saleoff" noprint=true style="display:none">'+soff + 	'</td></tr>';
 				tbd.append(billitem);
 				$('input[name=type]').attr('disabled',true);
 			}
@@ -467,6 +477,12 @@ function initItemsForModify(json)
 		var payer = $('input[name=payer]').val().trim();
 		var oprtype = $('#oprtype').val();//操作类型
 		var oriSeqnbr = $('#seqnbr').val();//原订单流水号
+		var oprcode = $('#opr').combobox('getValue');
+		if(oprcode == null || oprcode === '')
+		{
+			$.messager.alert('错误','请输入制单人!','error');
+			return;
+		}
 		if(punit === '')
 		{
 			$.messager.alert('错误','请输入购货单位!','error');
@@ -525,6 +541,7 @@ function initItemsForModify(json)
 		p += '&type='+type;
 		p += '&oprtype='+oprtype;
 		p += '&seqnbr='+oriSeqnbr;
+		p += '&operator='+oprcode;
 		PostData(ToEasyUIJson('sh,num,saleprice,total,type,mark,productid,saleoff,size,prodnbr,position,c_num',arr),p);
 			});
 		
@@ -539,7 +556,7 @@ function initItemsForModify(json)
 			return;
 		}else
 		{
-			$.messager.alert('温馨提示','制单完成','info');
+			$.messager.alert('温馨提示','制单完成，请退出到查询界面，重新查询','info');
 		}
 		var id = $('#sehao').combobox('getValue');
 		query();

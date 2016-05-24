@@ -41,4 +41,3 @@ D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\System.Web.dll
 D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\zh-CHS\System.Web.resources.dll
 D:\MyGithubProj\MyGitHubProj\UtilHelper\obj\Release\UtilHelper.dll
 D:\MyGithubProj\MyGitHubProj\UtilHelper\obj\Release\UtilHelper.pdb
-D:\MyGithubProj\MyGitHubProj\UtilHelper\obj\Release\UtilHelper.csprojResolveAssemblyReference.cache

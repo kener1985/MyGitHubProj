@@ -16,8 +16,8 @@
 			<tr>
 				<th data-options="field:'id',width:100,hidden:true">id</th>
 				<th data-options="field:'status',width:100,hidden:true">status</th>
-				<th data-options="field:'productid',width:100,align:'center',editor:{type:'text',options:{required:true}}">实际编号</th>
-				<th data-options="field:'innerid',width:100,align:'center',editor:{type:'text',options:{required:true}}">编号</th>
+				<th data-options="field:'productid',width:100,align:'center',editor:{type:'text',options:{required:true}}">编号</th>
+				<th data-options="field:'innerid',width:100,align:'center',hidden:true,editor:{type:'text',options:{required:false}}">编号</th>
 				<th data-options="field:'colornum',width:60,align:'center',editor:{type:'text',options:{required:true}}">色号</th>
 				<th data-options="field:'size',width:60,align:'center',editor:{type:'text',options:{required:true}}">规格</th>
 				<th data-options="field:'name',width:180,align:'center',editor:{type:'text',options:{required:true}}">产品名称</th>
@@ -59,8 +59,7 @@
 		<input id="search" class="easyui-searchbox" data-options="prompt:'请输入关键字',menu:'#smm',searcher:query,width:220"></input>
 	<div id="smm" style="width:120px">
 		<div data-options="name:'all',iconCls:'icon-ok'">所有货品</div>
-		<div data-options="name:'productid',iconCls:'icon-ok'">实际编号</div>
-		<div data-options="name:'innerid',iconCls:'icon-ok'">编号</div>
+		<div data-options="name:'productid',iconCls:'icon-ok'">编号</div>
 		<div data-options="name:'storelessthan',iconCls:'icon-ok'">库存小于</div>
 		<!--<div role="mgr" data-options="name:'opr',iconCls:'icon-ok'">操作员为</div>-->
 	</div>
@@ -85,11 +84,11 @@ $(function()
 	var pager = $('#dg').datagrid('getPager');
 	pager.pagination({showRefresh:false,pageList:[15,20,30]});
 	$('#btnER').bind('click',edit);
-	PostData('','cmd=queryroleinfo&invoke=SetRoleView');
+	PostData('','cmd=queryroleinfo&invoke=setRoleView');
 	}
 );
 
-	function SetRoleView(role)
+	function setRoleView(role)
 	{
 		//alert(role);
 		if(role != 'MGR')
@@ -116,11 +115,18 @@ $(function()
 			return;
 		}
 		var qp = '';
+		var data = '';
 		if(type === 1)//修改
+		{
 			qp = 'cmd=storechange&num=' + row.storenum+'&pnum='+row.packagenum+'&invoke=updateStoreNum';
+			data = row.id;
+		}
 		else
+		{
+			data = 'productid='+row.id;
 			qp = 'cmd=popup&file=storehistory.html&width=800&height=688';
-		PostData(row.id,qp);	
+		}
+		PostData(data,qp);	
 		//$('#dg').datagrid('updateRow',{index:idx,row:{storenum:10}});
 	}
 	function updateStoreNum(newnum,suc)
@@ -320,9 +326,15 @@ $.extend($.fn.datagrid.defaults.editors, {
 
 			delIds += delRows[i].id;
 		}
+		
 
 		if(rows.length > 0)
 		{
+			for(var j=0;j<rows.length;++j)
+			{
+				var item = rows[j];
+				item.innerid = item.productid;
+			}
 			var fields = $('#dg').datagrid('getColumnFields') + '';
 			var p = 'table=' + table;
 			p += "&cmd=update&fields=" + fields;

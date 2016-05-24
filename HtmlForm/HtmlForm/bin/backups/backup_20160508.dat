@@ -24,13 +24,13 @@ DROP TABLE IF EXISTS `members`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `sex` varchar(1) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `role` varchar(3) DEFAULT NULL,
-  `code` varchar(10) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL COMMENT '名称',
+  `sex` varchar(1) DEFAULT NULL COMMENT '性别',
+  `password` varchar(45) DEFAULT NULL COMMENT '密码',
+  `role` varchar(3) DEFAULT NULL COMMENT '角色(NML,MGR)',
+  `code` varchar(10) DEFAULT NULL COMMENT '员工编码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (3,'张晓銮','女','123','MGR','0003'),(5,'丹娜','女','66626','MGR','0006'),(6,'尔勤','男','123','MGR','0008'),(7,'zxl','女','123','NML','0001');
+INSERT INTO `members` VALUES (3,'张晓銮','女','123','MGR','0003'),(5,'丹娜','女','66626','MGR','0006'),(6,'尔勤','男','123','MGR','0008'),(7,'zxl','女','123','MGR','0001');
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-16 23:44:46
+-- Dump completed on 2016-05-08 13:48:56
