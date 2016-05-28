@@ -317,6 +317,8 @@ function modifyBill()
 	$('#modifyBillList').datagrid('loadData',{rows:[],toal:0});*/
 	var initParam = 'oprtype=modify&seqnbr='+r.seqnbr+'&id='+r.id;
 	PostData(initParam,'cmd=popup&file=bill.html&width=1200&height=660');
+
+	InitPage();
 }
 
 function deleteBill()

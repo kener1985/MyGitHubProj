@@ -230,7 +230,7 @@ function initItemsForModify(json)
 	var items = $.parseJSON(json);
 	if(items.total === 0)
 	{
-		$.messager.alert('提示','订单异常：如该订单个修改过，请先退出到主界面重新查询!','error');
+		$.messager.alert('提示','订单异常!','error');
 		return;
 	}
 	var tbd = $('#bill tbody');
@@ -556,7 +556,7 @@ function initItemsForModify(json)
 			return;
 		}else
 		{
-			$.messager.alert('温馨提示','制单完成，请退出到查询界面，重新查询','info');
+			$.messager.alert('温馨提示','制单完成','info');
 		}
 		var id = $('#sehao').combobox('getValue');
 		query();

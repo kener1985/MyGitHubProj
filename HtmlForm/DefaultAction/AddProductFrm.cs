@@ -39,8 +39,8 @@ namespace DefaultAction
         }
         private bool IntiRow(DataRow row)
         {
-            string pid = tbId.Text.Trim();
             string innerid = tbInnerId.Text.Trim();
+            string pid = innerid;//tbId.Text.Trim();
             string size = tbSize.Text.Trim();
             string colornum = tbColorNum.Text.Trim();
             string name = tbName.Text.Trim();

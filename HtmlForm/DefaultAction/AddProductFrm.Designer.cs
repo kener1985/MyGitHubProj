@@ -83,6 +83,7 @@
             this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 29;
             this.label2.Text = "实际编号：";
+            this.label2.Visible = false;
             // 
             // label3
             // 
@@ -162,6 +163,7 @@
             this.tbId.Name = "tbId";
             this.tbId.Size = new System.Drawing.Size(100, 21);
             this.tbId.TabIndex = 1;
+            this.tbId.Visible = false;
             this.tbId.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
             // 
             // tbColorNum

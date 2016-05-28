@@ -280,10 +280,10 @@ namespace BaseLib
             etb.Parse(sd["data"]);
             DateTime dtNow = DateTime.Now;
             long billseq = dtNow.Ticks;
-            if (sd.ContainsKey("seqnbr") && sd["seqnbr"] != null && !sd["seqnbr"].Equals(String.Empty))
-            {
-                billseq = Convert.ToInt64(sd["seqnbr"]);
-            }
+            //if (sd.ContainsKey("seqnbr") && sd["seqnbr"] != null && !sd["seqnbr"].Equals(String.Empty))
+            //{
+            //    billseq = Convert.ToInt64(sd["seqnbr"]);
+            //}
 
             etb.Table.Columns.Add("seqnbr");
             foreach (DataRow r in etb.Table.Rows)
