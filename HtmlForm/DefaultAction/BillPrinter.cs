@@ -63,11 +63,14 @@ namespace DefaultAction
                 // .Append("总货款:</td><td colspan=5>总计:").Append(sd["totalamt"]).Append("</td></tr>")
                  .Append("总货款:</td></tr>")
               .Append("<tr style=\"text-align:left\"><td colspan=7><div style=\"width:200px;float:left;\">制单人：").Append(opr)
-              .Append("</div><div style=\"width:200px;float:left;\">提货人:</div>")
+              .Append("</div><div style=\"width:200px;float:left;\">签收人:</div>")
               .Append("联系电话:").Append(sd["mobile"]).Append("</td></tr>")
               
               .Append("</tbody></table>")
-              .Append("<span style=\"font-size:14px;\">温馨提示:尊敬的客户,收到货时请当场验收,如有问题请立即与本部联系,一经签收恕不负责。</span>");
+              .Append("<span style=\"font-size:14px;\">1.请仔细清点验收货品,一经签收,概不负责。<BR/>")
+              .Append("2.若有剩余,请于开单之日起两个月内退换,逾期按五折计价退货。<BR/>")
+              .Append("3.外墙砖不予退货。")
+              .Append("</span>");
             sz.AppendLine("</body></html>");
             string pre = DateTime.Now.ToString("yyyyMMddHHmmss");
             string path = GlobalVar.AppPath + "temp\\";

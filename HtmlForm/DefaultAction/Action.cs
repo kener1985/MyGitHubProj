@@ -315,7 +315,7 @@ namespace BaseLib
             string idset = GetIdSet(etb.Table, "productid");
             DataTable tbProd = new DataTable("products");
             GlobalVar.DBHelper.AddSelectWithLimit("products", "id,storenum", "id IN " + idset);
-            GlobalVar.DBHelper.AddUpdate("products", "id,storenum,size,position", "id");
+            GlobalVar.DBHelper.AddUpdate("products", "id,storenum", "id");
             GlobalVar.DBHelper.Fill(ref tbProd);
 
             //storehistory表
