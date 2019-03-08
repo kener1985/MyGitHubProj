@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -80,7 +80,7 @@
 	    </div>
 		</div>
 		</div>
-
+		<a href="javascript:openStrore();" style="position:absolute;top:17px;left:918px;z-index:9999;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">仓库</a>
 		<div style="position:absolute;left:501px">
 		<div class="easyui-panel" title="货品明细" style="width:480px;height:180px;overflow-x:hidden" data-options="collapsible:false">
 		<TABLE style="table-layout:fixed;word-break:break-all;word-wrap:true;font-size:16px;margin:0 0 0 1px">
@@ -122,7 +122,7 @@
 		收货人：<input type="text" name="purunit" >
 		<label style="margin-left:500px">日期：<label name="date"></label></label>
 		页码：<label name="pagecode">1</label>
-		<input type="hidden" name="pid" value="0">
+		
 		</div>
 		<TABLE id="bill" style="table-layout:fixed;word-break:break-all;word-wrap:true;margin:0 0 0 1px">
 			<thead align="left">
@@ -155,16 +155,19 @@
 </ul>
 </div>
 
-<a id="tbhp" href="javascript:showHisPrice();" class="easyui-linkbutton" style="position:absolute;top:17px;left:390px;" data-options="iconCls:'icon-add',plain:true">历史价格</a>
+<a id="tbhp" href="javascript:showHisPrice();" class="easyui-linkbutton" style="position:absolute;top:17px;left:390px;" data-options="iconCls:'icon-tip',plain:true">历史价格</a>
+<a id="tbhp" href="javascript:showHisBills();" class="easyui-linkbutton" style="position:absolute;top:202px;left:86px;" data-options="iconCls:'icon-tip',plain:true">历史订单</a>
+
 <div id="pricehis" style="position:absolute;width:280px;height:80px;top:46px;left:200px;border:solid #FF3300 2px;background:white;display:none;overflow-x:hidden;overflow-y:auto;">
 <ul style="list-style-type:none;margin:2px;cursor:hand;font-size:15px;white-space:nowrap;">
 </ul>
 
-</div>
-<div style="position:absolute;top:206px;left:80px;font-size:15px;">
+
+</div >
+<div style="position:absolute;top:206px;left:80px;font-size:15px;display:none;">
 <input type="checkbox" id="jq">结清
 </div>
-<div>
+<div style="display:none">
 <a  href="javascript:backup('save');" class="easyui-linkbutton" style="position:absolute;top:203px;left:150px;" data-options="iconCls:'icon-save',plain:true">保存</a>
 <a href="javascript:backup('restore');" class="easyui-linkbutton" style="position:absolute;top:203px;left:220px;" data-options="iconCls:'icon-add',plain:true">恢复</a>
 </div>
@@ -172,27 +175,31 @@
 
 <input id="oprtype" type="hidden" value="add">
 <input id="seqnbr" type="hidden">
+<input id="pid" type="hidden">
 </body>
 </html>
 
 <SCRIPT LANGUAGE="JavaScript" >
 	    <!--
 
-function InitPage(p) { //alert(window.location.search);
+function InitPage(p) { 
 	var type = getUrlParam('oprtype');
 	var id = getUrlParam('id');
+
 	if (type === 'append') //追加订单
 	{
-		//alert('append'+id);
+
+		$('#pid').val(id);
 		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id+'&type=append');
-		PostData('', 'cmd=select&table=bills&fields=id,operator,payer,mobile,purunit,pagecode&invoke=returnJson&limit=id%3d' + id);
+		PostData('', 'cmd=select&table=bills&fields=id,operator,payer,mobile,purunit,pagecode,pid&invoke=initBill&limit=id%3d' + id +' or pid%3d' + id +' order by seqnbr desc limit 1');
 	} else if (type === 'modify') //修改订单
 	{
 		var seqnbr = getUrlParam('seqnbr');
 		$('#oprtype').val('modify');
 		$('#seqnbr').val(seqnbr);
+
 		PostData('', 'cmd=initbillinfo&invoke=setBillnfo&id=' + id+'&type=modify');
-		PostData('', 'cmd=select&table=bills&fields=id,pid,operator,payer,mobile,purunit,pagecode&invoke=returnJson&limit=id%3d' + id);
+		PostData('', 'cmd=select&table=bills&fields=id,pid,operator,payer,mobile,purunit,pagecode&invoke=initBill&limit=id%3d' + id);
 		PostData('', 'cmd=queryBillItems&invoke=initItemsForModify&seqnbr=' + seqnbr);
 	} else //新建订单
 	{
@@ -200,11 +207,19 @@ function InitPage(p) { //alert(window.location.search);
 	}
 }
 
-
+function showHisBills()
+{
+	var initStr = "readonly=true&type=main&id="+$('#pid').val();
+PostData(initStr,'cmd=popup&file=billDetail.html&width=1200&height=660');
+}
 function backup(type)
 {
 
 	PostData($('#bill tbody').html(),'cmd=billbackup&type='+type);
+}
+function openStrore()
+{
+    PostData('','cmd=popup&file=products.html&width=1200&height=660');
 }
 function restoreList(list)
 {
@@ -326,7 +341,7 @@ function initItemsForModify(json)
 				);
 				//alert(obj.rows[0].saleprice);
 			}
-			function returnJson(json)
+			function initBill(json)
 			{
 				var b = $.parseJSON(json);
 				if(b.rows.length === 0)return;
@@ -334,9 +349,14 @@ function initItemsForModify(json)
 				$('input[name=payer]').val(b.rows[0].payer);
 				$('input[name=mobile]').val(b.rows[0].mobile);
 				$('input[name=purunit]').val(b.rows[0].purunit);
+				
 				var pid = (b.rows[0].pid === null || typeof b.rows[0].pid === 'undefined') ? b.rows[0].id : b.rows[0].pid;
-				//alert(pid);
-				$('input[name=pid]').val(pid);
+				
+				var type = $('#oprtype').val();
+				if(type === 'modify')
+					$('#pid').val(pid);
+			
+
 			}
 			function customPrice(obj)
 			{
@@ -523,7 +543,7 @@ function initItemsForModify(json)
 		);//end each
 		if(arr.length < 1)
 		{
-			$.messager.alert('无法提交','账单为空!','error');
+			$.messager.alert('无法提交','账单不能为空!','error');
 			return ;
 		}
 		var type = $('input[name=type][checked]').val();
@@ -534,7 +554,7 @@ function initItemsForModify(json)
 		p += '&pagecode='+$('label[name=pagecode]').text();
 		p += '&mobile=' +	$('input[name=mobile]').val();
 		p += '&purunit=' + $('input[name=purunit]').val();
-		p += '&pid='+$('input[name=pid]').val();
+		p += '&pid='+$('#pid').val();//$('input[name=pid]').val();
 		p += '&cmd=balancebill';
 		p+= '&totalamt=' + total.toFixed(2) + '元    （大写:' + ToUpperCase(total.toFixed(2)) + '）';
 		p += '&amount=' + total.toFixed(2)
@@ -542,13 +562,17 @@ function initItemsForModify(json)
 		p += '&oprtype='+oprtype;
 		p += '&seqnbr='+oriSeqnbr;
 		p += '&operator='+oprcode;
+
 		PostData(ToEasyUIJson('sh,num,saleprice,total,type,mark,productid,saleoff,size,prodnbr,position,c_num',arr),p);
-			});
+		if(oprtype === 'modify')
+			return;
+		$('#bill tbody').empty();
+			});// end 提交
 		
 	}
 	function resultCallback(ret)
 	{
-
+		var oprtype = $('#oprtype').val();
 		//printPreview();
 		if(ret === false)
 		{
@@ -558,6 +582,7 @@ function initItemsForModify(json)
 		{
 			$.messager.alert('温馨提示','制单完成','info');
 		}
+
 		var id = $('#sehao').combobox('getValue');
 		query();
 		//更新最新数据
@@ -641,6 +666,9 @@ function initItemsForModify(json)
 			}
 			function  itemSel(r)
 			{
+				if(r === null)
+					return;
+
 				var pronbr = r.productid;
 				var sh = r.colornum;
 				var pos = r.position;
@@ -667,6 +695,21 @@ function initItemsForModify(json)
 				else
 					$('#price').text(sprice);
 				$('#pos').text(pos);
+				
+				var cp = $('#cusprice').val();
+				if(cp !== null && cp !=='')
+				{
+					return;
+				}
+				//回填最近价格
+				var hprices = $('#pricehis li[name='+r.innerid+']');
+				if(hprices.length > 0)
+				{
+					var priceInfo = $(hprices[0]).text();
+					var idx = priceInfo.indexOf("：");
+					$('#cusprice').val(priceInfo.substring(++idx).replace("元",""))
+				}
+
 			}
 
 			function queryKeyUp(e)

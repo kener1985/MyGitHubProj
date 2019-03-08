@@ -246,13 +246,15 @@ namespace BaseLib
 
             GlobalVar.DBHelper.BeginBatch();
             string oriId = null;//原id
+            DateTime dtNow = DateTime.Now;
+            long billseq = dtNow.Ticks;
             //修改订单,先将之前的信息冲掉
             if (sd["oprtype"].Equals("modify"))
             {
                 //保存原id
                 GlobalVar.DBHelper.AddCustomParam("@seqnbr", sd["seqnbr"]);
                 oriId = Convert.ToString(GlobalVar.DBHelper.ExcuteForUnique("select id from bills where seqnbr=@seqnbr", true));
-                
+                billseq = Convert.ToInt64(sd["seqnbr"]);
                 if (!restoreBalance(sd["seqnbr"]))
                 {
                     MessageBox.Show("修改订单失败");
@@ -278,8 +280,7 @@ namespace BaseLib
             //billitem表
             EasyUITable etb = new EasyUITable();
             etb.Parse(sd["data"]);
-            DateTime dtNow = DateTime.Now;
-            long billseq = dtNow.Ticks;
+            
             //if (sd.ContainsKey("seqnbr") && sd["seqnbr"] != null && !sd["seqnbr"].Equals(String.Empty))
             //{
             //    billseq = Convert.ToInt64(sd["seqnbr"]);
@@ -306,7 +307,7 @@ namespace BaseLib
             row.SetField<string>("mobile", sd["mobile"]);
             row.SetField<string>("payer", sd["payer"]);
             row.SetField<string>("purunit", sd["purunit"]);
-            row.SetField<string>("pid", sd["pid"]);
+            row.SetField<string>("pid", sd["pid"] == "" ? "0" : sd["pid"]);
             row.SetField<string>("pagecode", sd["pagecode"]);
             row.SetField<string>("type", sd["type"]);
             tbBill.Rows.Add(row);
@@ -335,7 +336,7 @@ namespace BaseLib
             debtrow.SetField<string>("main_seqnbr", billseq.ToString());
             debtrow.SetField<string>("billseq", billseq.ToString());
             
-            if (sd["pid"] != "0")
+            if (sd["pid"] != "0" && sd["pid"] != "" && sd["pid"] != null)
             {
                 string mainSeqnbr = GlobalVar.DBHelper.ExcuteForUnique<string>("select seqnbr from bills where id=" + sd["pid"]);
                 debtrow.SetField<string>("main_seqnbr", mainSeqnbr);
@@ -657,7 +658,9 @@ namespace BaseLib
                 StringBuilder sz = new StringBuilder();
                 sz.Append("SELECT p.productid,p.innerid,p.colornum,b.saleprice,b.seqnbr")
                     .Append(" FROM billitem as b,products as p where p.id=b.productid AND b.seqnbr IN ")
-                    .Append(seqset);
+                    .Append(seqset)
+                    .Append(" order by b.seqnbr desc");
+                    
                 EasyUITable etb = new EasyUITable();
                 etb.Table = GlobalVar.DBHelper.MultiTableSelect(sz.ToString(), false);
                 GlobalVar.AddDateFildFromSeqnbr(etb.Table, false);

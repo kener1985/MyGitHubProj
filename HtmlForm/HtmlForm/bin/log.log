@@ -1,0 +1,3 @@
+﻿2016年10月10日 星期一下午 11:20:59 [ERROR]	加载Action失败！		Action:defaultAction执行default时发生内部错误
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+2016年10月10日 星期一下午 11:26:17 [ERROR]	Incorrect integer value: '' for column 'pid' at row 1		Adapter Update

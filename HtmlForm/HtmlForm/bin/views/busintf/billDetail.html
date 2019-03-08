@@ -15,15 +15,16 @@
 	-->
 	</style>
 </head>
-<body  >
+<body>
+<div style="margin-bottom:10px;" id="funcPanel">
 <a href="javascript:print();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">打印</a>
 <a href="javascript:payback();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">还款</a>
 <a href="javascript:debtdetail();" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">统计</a>
 <a href="javascript:modifyBill()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">修改</a>
 <a href="javascript:deleteBill()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">删除</a>
-
+</div>
 <!--<a href="javascript:test()" class="easyui-linkbutton" style="margin-left:8px;" data-options="plain:false">test</a>-->
-<div >
+<div style="position:absolute;top:43px;left:10px;">
 <table id="bill" class="easyui-datagrid" title="账单列表"  style="width:300px;height:560px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" alt="双击查看明细">
 		<thead>
 			<tr>
@@ -37,7 +38,7 @@
 	</div>
 	<div style="position:absolute;top:43px;left:313px;display:none;" id="billdetail">
 	<div id="detail" class="easyui-panel" title="账单明细"    
-        style="width:850px;height:560px;padding:10px;background:#fafafa;"  
+        style="width:850px;height:540px;padding:10px;background:#fafafa;"  
         data-options="closable:false,   
                 collapsible:false,minimizable:false,maximizable:false">  
 	<table width="400px" name="head">
@@ -46,7 +47,7 @@
 				<tr> <td>联系电话：</td><td name="mobile"></td><td><!--页码：--></td><td></td></tr>
 				</table>
 
-	<table id="billitem" class="easyui-datagrid" title=""  style="width:820px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
+	<table id="billitem" class="easyui-datagrid" title=""  style="width:826px;height:440px;" data-options="remoteSort:false,singleSelect:true,collapsible:false" >
 		<thead>
 			<tr>
 				<!--<th data-options="field:'id',width:100,hidden:true">id</th>-->
@@ -120,6 +121,13 @@
 		//alert(location.href);
 		var type = getUrlParam('type');//main 表示主单
 		var id = getUrlParam('id');//空表示为新建订单
+		var readonly = getUrlParam('readonly');
+
+		if(readonly === 'true')
+		{
+			$('#funcPanel').css('display','none');
+		}
+
 		if(type === null)
 		{
 				$.messager.alert('温馨提示','无效操作类型','error');

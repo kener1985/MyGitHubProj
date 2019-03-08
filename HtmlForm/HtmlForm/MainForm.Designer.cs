@@ -42,9 +42,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 480);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 478);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(705, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(705, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -52,7 +52,7 @@
             // 
             this.statusBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(164, 17);
+            this.statusBar.Size = new System.Drawing.Size(178, 19);
             this.statusBar.Text = "欢迎使用金煌建材城管理系统";
             // 
             // panel1
@@ -61,7 +61,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(705, 476);
+            this.panel1.Size = new System.Drawing.Size(705, 474);
             this.panel1.TabIndex = 2;
             // 
             // wb
@@ -71,8 +71,8 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.PageId = "635141915754321683";
-            this.wb.Size = new System.Drawing.Size(705, 476);
+            this.wb.PageId = "636646982383482288";
+            this.wb.Size = new System.Drawing.Size(705, 474);
             this.wb.TabIndex = 0;
             this.wb.WebBrowserShortcutsEnabled = false;
             // 
@@ -97,12 +97,12 @@
             this.MainMenuStrip = this.ms;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "金煌建材管理系统(账单录入版)";
+            this.Text = "金煌建材管理系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.VisibleChanged += new System.EventHandler(this.MainForm_VisibleChanged);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
