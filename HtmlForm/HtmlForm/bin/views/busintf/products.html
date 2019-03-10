@@ -138,7 +138,7 @@ $(function()
 			$('#dg').datagrid('updateRow',{index:idx,row:{storenum:newnum}});
 			$.messager.alert('','更新成功','info');
 		}else
-		$.messager.alert('','更新失败','error');
+		$.messager.alert('','更新失败，请尝试重新查询后，再操作!','error');
 	}
 /************        editors        ***************/
 $.extend($.fn.datagrid.defaults.editors, {   

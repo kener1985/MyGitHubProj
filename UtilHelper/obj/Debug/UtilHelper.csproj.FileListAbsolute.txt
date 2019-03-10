@@ -52,3 +52,9 @@ D:\CSharpProj\UtilHelper\bin\System.Web.dll
 D:\CSharpProj\UtilHelper\bin\zh-CHS\System.Web.resources.dll
 D:\CSharpProj\UtilHelper\obj\Debug\UtilHelper.dll
 D:\CSharpProj\UtilHelper\obj\Debug\UtilHelper.pdb
+D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\UtilHelper.dll
+D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\UtilHelper.pdb
+D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\System.Web.dll
+D:\MyGithubProj\MyGitHubProj\UtilHelper\bin\zh-CHS\System.Web.resources.dll
+D:\MyGithubProj\MyGitHubProj\UtilHelper\obj\Debug\UtilHelper.dll
+D:\MyGithubProj\MyGitHubProj\UtilHelper\obj\Debug\UtilHelper.pdb

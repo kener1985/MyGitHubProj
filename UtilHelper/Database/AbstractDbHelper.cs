@@ -231,7 +231,7 @@ namespace UtilHelper.Database
         /// <param name="fields">The fields.</param>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public AbstractDbHelper AddUpdate(string table, string fields, string id, Dictionary<string, object> param)
+        public AbstractDbHelper AddUpdate(string table, string fields, string id, Dictionary<string, object> param,string limitStr)
         {
             StringBuilder sb = new StringBuilder();
             string[] fs = fields.Split(',');
@@ -251,6 +251,9 @@ namespace UtilHelper.Database
             //去掉最后一个 , 号
             sb.Remove(sb.Length - 1, 1);
             sb.Append(" WHERE ").Append(MakeWhereSql(id.Split(',')));
+            if (limitStr != null)
+                sb.Append(" AND ").Append(limitStr);
+
             if (m_dAdapters.ContainsKey(table) == false)
                 m_dAdapters[table] = NewDataAdapter();
 
@@ -265,7 +268,7 @@ namespace UtilHelper.Database
         }
         public AbstractDbHelper AddUpdate(string table, string fields, string id)
         {
-            return AddUpdate(table, fields, id, null);
+            return AddUpdate(table, fields, id, null,null);
         }
         #endregion
         private string MakeWhereSql(string[] ids)
@@ -317,6 +320,23 @@ namespace UtilHelper.Database
                 if (cmd.Parameters.IndexOf(p.ParameterName) == -1)
                 cmd.Parameters.Add(p);
             }
+
+            if (param != null && param.Count > 0)
+            {
+                //个性参数
+                foreach (string k in param.Keys)
+                {
+                    if (cmd.Parameters.IndexOf(k) != -1)
+                        continue;//已存在
+
+                    //不存在则新增
+                    DbParameter p = NewParameter();
+                    p.ParameterName = k;
+                    p.Value = param[k];
+                    cmd.Parameters.Add(p);
+                }
+            }
+
         }
         public List<string> GetSchema(string table)
         {
