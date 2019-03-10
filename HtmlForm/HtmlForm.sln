@@ -7,6 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlForm", "HtmlForm\HtmlFo
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLib", "BaseLib\BaseLib.csproj", "{E75E6446-9229-440D-B743-6AA947FC6A54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C} = {9ED1C6BD-52E2-4DFB-BC15-A179F7E9955C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultAction", "DefaultAction\DefaultAction.csproj", "{D5C0D5E8-576B-4757-A18F-CB61F3BD5517}"
 EndProject

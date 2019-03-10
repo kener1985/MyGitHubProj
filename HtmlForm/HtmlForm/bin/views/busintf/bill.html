@@ -400,10 +400,14 @@ function initItemsForModify(json)
 			{
 				var item = getComboRow('#sehao','id');
 				var tbd = $('#bill tbody');
+
+				 if($('#ff').form('validate') == false)
+					return;
+
 				//判断货品是否已添加
 				if(tbd.find('tr[itemid=' +item.id+']').length > 0)
 				{
-					$.messager.confirm('记录重复','编号' + item.productid + '色号' + item.colornum + '记录已存在!',function(r)
+					$.messager.confirm('记录重复','编号：[' + item.productid + ']，色号：[' + item.colornum + ']记录已存在!',function(r)
 					{
 						if(r === true)
 							processAddItem();
@@ -423,8 +427,6 @@ function initItemsForModify(json)
 					$.messager.alert('提示','表单已满,请新建账单!','info');
 					return;
 				}
-			    if($('#ff').form('validate') == false)
-					return;
 				var item = getComboRow('#sehao','id');
 				if(item == null)
 				{

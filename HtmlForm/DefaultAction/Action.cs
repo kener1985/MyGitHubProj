@@ -255,7 +255,7 @@ namespace BaseLib
                 GlobalVar.DBHelper.AddCustomParam("@seqnbr", sd["seqnbr"]);
                 oriId = Convert.ToString(GlobalVar.DBHelper.ExcuteForUnique("select id from bills where seqnbr=@seqnbr", true));
                 billseq = Convert.ToInt64(sd["seqnbr"]);
-                if (!restoreBalance(sd["seqnbr"]))
+                if (!restoreBalance(sd))
                 {
                     MessageBox.Show("修改订单失败");
                     GlobalVar.DBHelper.EndBatch(true);//异常强制回滚
@@ -265,7 +265,7 @@ namespace BaseLib
             {
                 //删除账单，并回滚库存及相关记录
 
-                bool success = restoreBalance(sd["seqnbr"]);
+                bool success = restoreBalance(sd);
                 GlobalVar.DBHelper.EndBatch(!success);
                 
                 GlobalVar.Container.InvokeScript(sd["invoke"],new object[]{success});
@@ -447,8 +447,9 @@ namespace BaseLib
         /**
          *  billseq原订单流水
          **/
-        private bool restoreBalance(string billseq)
+        private bool restoreBalance(StrDictionary sd)
         {
+            string billseq = sd["seqnbr"];
             try
             {
                 GlobalVar.DBHelper.AddCustomParam("@seqnbr", billseq);
@@ -458,14 +459,12 @@ namespace BaseLib
                 GlobalVar.DBHelper.Fill(ref billitemTable);
 
                 //加载原库存历史
-                GlobalVar.DBHelper.AddCustomParam("@billseqnbr", billseq);
-                DataTable hisTable = new DataTable("storenumhistory");
+                //GlobalVar.DBHelper.AddCustomParam("@billseqnbr", billseq);
+                DataTable hisTable = new DataTable();
                 string hisFields = "seqnbr,billseqnbr,productid,type,num,mark,finalstore,customer,opr";
-                GlobalVar.DBHelper.AddSelectWithLimit("storenumhistory", hisFields, "billseqnbr=@billseqnbr");
-                GlobalVar.DBHelper.Fill(ref hisTable);
-                GlobalVar.DBHelper.AddInsert("storenumhistory", hisFields);
+                hisTable.Init("storenumhistory", hisFields);
 
-                GlobalVar.DBHelper.BeginBatch();
+                //GlobalVar.DBHelper.BeginBatch();//外面已经开启事务
 
                 GlobalVar.DBHelper.AddCustomParam("@seqnbr",billseq);
                 //删除原订单
@@ -477,8 +476,9 @@ namespace BaseLib
                 //删除原出货历史 -- 20190310 变更为插入变更历史
                 //GlobalVar.DBHelper.ExcuteForUnique("delete from storenumhistory where billseqnbr=@seqnbr", true);
                 Dictionary<long, int> storeDic = new Dictionary<long, int>();//库存快照
-                foreach (DataRow r in hisTable.Rows)
+                foreach (DataRow r in billitemTable.Rows)
                 {
+                    DataRow hr = hisTable.NewRow();
                     int orinum = r.Field<int>("num");
                     int curStore = 0;
                     long prodId = r.Field<long>("productid");
@@ -492,14 +492,20 @@ namespace BaseLib
                     }
                     curStore = storeDic[prodId];
                     //计算入货后当前最新库存
-                    r.SetField<string>("type","M");
-                    r.SetField<string>("seqnbr", DateTime.Now.Ticks.ToString());
-                    r.SetField<int>("finalstore", curStore + orinum);
+                    hr.SetField<string>("type","M");
+                    hr.SetField<string>("seqnbr", DateTime.Now.Ticks.ToString());
+                    hr.SetField<int>("finalstore", curStore + orinum);
                     storeDic[prodId] = curStore + orinum;
-                    r.SetField<string>("mark",r.Field<string>("mark")+"(改单)");//入货处理
-                    r.AcceptChanges();
-                    r.SetAdded();
+                    hr.SetField<string>("mark","#改单-入货");//入货处理
+                    hr.SetField<string>("customer", sd["purunit"]);
+                    hr.SetField<long>("productid", prodId);
+                    hr.SetField<int>("num", orinum);
+                    hr.SetField<string>("billseqnbr", billseq);
+                    hr.SetField<string>("opr", GlobalVar.LogInfo.WorkCode);
+
+                    hisTable.Rows.Add(hr);
                 }
+                GlobalVar.DBHelper.AddInsert("storenumhistory", hisFields);
                 GlobalVar.DBHelper.Update(hisTable);
                 //还原产品数量
                 foreach (DataRow r in billitemTable.Rows)
@@ -510,17 +516,13 @@ namespace BaseLib
                     string calc = type.Equals("O") ? "+" : "-";//原先为出货，恢复后数量增加
                     GlobalVar.DBHelper.ExcuteNonQuery("update products set storenum=storenum" + calc + num + " where id=" + productid);
                 }
-
-
-                return GlobalVar.DBHelper.EndBatch();
-
+                return true;
             }
             catch (Exception e)
             {
                 GlobalVar.Log.LogError("还原订单信息异常:"+e.Message);
                 return false;
             }
-            return true;
         }
         public bool IsMe(string schema)
         {
@@ -1231,7 +1233,7 @@ namespace BaseLib
         {
             AbstractDbHelper helper  = GlobalVar.DBHelper;
             helper.AddCustomParam("@seqnbr",sd["seqnbr"]);
-            DataTable tbl = helper.MultiTableSelect("select bi.seqnbr,bi.num,bi.c_num,bi.type,bi.saleoff,bi.saleprice,bi.mark,p.id,p.colornum,p.innerid,p.productid,p.size,p.position " +
+            DataTable tbl = helper.MultiTableSelect("select bi.id as itemId,bi.seqnbr,bi.num,bi.c_num,bi.type,bi.saleoff,bi.saleprice,bi.mark,p.id,p.colornum,p.innerid,p.productid,p.size,p.position " +
             "from billitem bi,products p where bi.seqnbr=@seqnbr and p.id=bi.productid", true);
 
             EasyUITable etb = new EasyUITable();
